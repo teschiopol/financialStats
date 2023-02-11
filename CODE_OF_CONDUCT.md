@@ -1,14 +1,14 @@
-# 📚 Rules
+# Rules 📚
 
 How to work well together.
 
-## 🌲 Branch
+## Branch 🌲
 
 - Create a branch for each feature
 
 - Test with (future) workflow on develop, before merge on master
 
-## ✍🏻 Commit
+## Commit ✍🏻
 
 - style: for frontend mostly
 
