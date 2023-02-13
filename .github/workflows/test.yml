@@ -14,8 +14,8 @@ jobs:
     steps:
     - name: Run script file
       run: |
-        chmod +x ./generate-todo.sh
-        ./generate-todo.sh
+        chmod +x ./../../generate-todo.sh
+        ./../../generate-todo.sh
       shell: bash
     - name: Auto commit
       uses: stefanzweifel/git-auto-commit-action@v4
