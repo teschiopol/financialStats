@@ -12,18 +12,18 @@ jobs:
     runs-on: ubuntu-latest
 # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-    - name: Run script file
-      run: npm run todo
-    - name: Auto commit
-      uses: stefanzweifel/git-auto-commit-action@v4
-      with:
-        commit_message: Automated TODO
     - uses: actions/checkout@v2
     - uses: actions/setup-node@v2
       with:
         node-version: '18'
     - name: Install
       run: npm install
+    - name: Run script file
+      run: npm run todo
+    - name: Auto commit
+      uses: stefanzweifel/git-auto-commit-action@v4
+      with:
+        commit_message: Automated TODO
     - name: Build
       run: npm run build
       env:
