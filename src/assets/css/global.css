@@ -1,0 +1,63 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100;400&display=swap');
+
+body{
+    margin: 0;
+    background-color: var(--aliceblue);
+    font-family: Montserrat, sans-serif;
+}
+
+.basic{
+    color: inherit;
+}
+
+.modal{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    width: 100vw;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: var(--suswhite);
+    border: 1px solid var(--darkcyan);
+}
+
+.modal-content{
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 25px;
+}
+
+.modal-content > h2, p, form{
+    margin-bottom: 16px;
+}
+
+h2{
+    color: var(--darkcyan);
+}
+
+.modal-inner{
+    position: relative;
+    max-width: 640px;
+    width: 80%;
+    box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06);
+    background-color: var(--aliceblue);
+    padding: 30px;
+}
+
+.modal-animation-enter-active,
+.modal-animation-leave-active{
+    transition: opacity 0.3s cubic-bezier(0.52, 0.02, 0.19, 1.02);
+}
+
+.modal-animation-enter-from,
+.modal-animation-leave-to{
+    opacity: 0;
+}
+/* TODO: custom responsive not available page */
+@media only screen and (max-width: 700px) {
+    body {
+        display: none;
+    }
+}

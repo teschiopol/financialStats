@@ -1,0 +1,26 @@
+.login{
+    margin: auto;
+    position: relative;
+    max-width: 500px;
+    width: 40%;
+    box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06);
+    background-color: var(--aliceblue);
+    padding: 30px;
+}
+
+.login > h1{
+    text-align: center;
+}
+
+.logo{
+    width: 100px;
+    position: relative;
+    left: 50%;
+    transform: translate(-50%,0);
+}
+
+.error{
+    text-align: center;
+    color: var(--darkred);
+    margin-top: 20px;
+}
