@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 printf "## TODO ✅\n\n" > TODO.md
 
