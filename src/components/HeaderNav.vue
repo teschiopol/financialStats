@@ -7,16 +7,16 @@
   </div>
   <div class="navbar" v-if="logged">
     <div style="width: 15%">
-      <a class="basic" href="">Home 🏠</a>
+      <router-link to="/" class="basic" >Home 🏠</router-link>
     </div>
     <div style="width: 15%">
-      <a class="basic" href="">List 📊</a>
+      <router-link to="/list" class="basic" >List 📊</router-link>
     </div>
     <div style="width: 15%">
-      <a class="basic" href="">Category 📚</a>
+      <router-link to="/category" class="basic">Category 📚</router-link>
     </div>
     <div style="width: 15%">
-      <a class="basic" href="">Relevance 🧮</a>
+      <router-link to="/relevance" class="basic">Relevance 🧮</router-link>
     </div>
     <div style="width: 20%"></div>
     <div @click="logout" style="width: 20%">
