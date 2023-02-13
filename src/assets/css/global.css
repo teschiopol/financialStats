@@ -55,7 +55,7 @@ h2{
 .modal-animation-leave-to{
     opacity: 0;
 }
-/* TODO: custom responsive not available page */
+  /* TODO: custom responsive not available page */
 @media only screen and (max-width: 700px) {
     body {
         display: none;

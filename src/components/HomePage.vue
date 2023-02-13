@@ -12,7 +12,7 @@
       HeaderNav
     },
     mounted() {
-      // TODO: api get cookie token auth
+  // TODO: api get cookie token auth
       let user = localStorage.getItem('user-info');
       if(!user){
         this.$router.push({name:"Login"});

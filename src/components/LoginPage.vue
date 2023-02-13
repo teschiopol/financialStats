@@ -21,7 +21,8 @@
 </template>
 
 <script>
-// TODO: make custom logo
+  // TODO: make custom logo
+  // TODO: send with enter
 import HeaderNav from "@/components/HeaderNav";
 import ButtonStandard from "@/components/ButtonStandard";
 import {ref} from "vue";
