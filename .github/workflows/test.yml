@@ -13,7 +13,7 @@ jobs:
 # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
     - name: Run script file
-      run: ./github/scripts/generate-todo.sh
+      run: ./.github/scripts/generate-todo.sh
       shell: bash
     - name: Auto commit
       uses: stefanzweifel/git-auto-commit-action@v4
