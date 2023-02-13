@@ -1,13 +1,25 @@
 <template>
-  <div class="navbar">
-    <div style="width: 33%; text-align: center; margin: auto 0" v-if="logged">
-      <a class="basic" href="">Home 🏠</a>
-    </div>
-    <div style="width: 33%" v-if="!logged"></div>
-    <div style="width: 33%; text-align: center; margin: auto 0">
+  <div class="navbar" v-if="!logged">
+    <div></div>
+    <div>
       <a class="basic" href="https://www.unicorne.it/" target="_blank">Develop by Unicorne 🦄</a>
     </div>
-    <div style="width: 33%; text-align: center; margin: auto 0" v-if="logged" @click="logout">
+  </div>
+  <div class="navbar" v-if="logged">
+    <div style="width: 15%">
+      <a class="basic" href="">Home 🏠</a>
+    </div>
+    <div style="width: 15%">
+      <a class="basic" href="">List 📊</a>
+    </div>
+    <div style="width: 15%">
+      <a class="basic" href="">Category 📚</a>
+    </div>
+    <div style="width: 15%">
+      <a class="basic" href="">Relevance 🧮</a>
+    </div>
+    <div style="width: 20%"></div>
+    <div @click="logout" style="width: 20%">
       <a class="basic" href="">Logout 🔓</a>
     </div>
   </div>
@@ -40,5 +52,10 @@
     background-color: var(--darkcyan);
     height: 3.5em;
     display: flex;
+  }
+  .navbar > div{
+    width: 33%;
+    text-align: center;
+    margin: auto 0;
   }
 </style>

@@ -1,6 +1,6 @@
 <template>
   <HeaderNav :logged="false"/>
-  <div class="login">
+  <div class="login" @keyup.enter="login">
     <img class="logo" src="../assets/images/logo.png" alt="logo-financial-stats"/>
     <h1>Login</h1>
     <div class="input-container ic1">
@@ -9,7 +9,8 @@
       <label for="user" class="placeholder">User</label>
     </div>
     <div class="input-container ic1" style="margin-bottom: 40px">
-      <input id="password" class="input" type="password" placeholder="" autocomplete="off" v-model="password" />
+      <i class="hideShowPassword" @mousedown="switchVisibility" @mouseup="switchVisibility">👀</i>
+      <input id="password" class="input" :type="passwordFieldType" placeholder="" autocomplete="off" v-model="password" />
       <div class="cut"></div>
       <label for="password" class="placeholder">Password</label>
     </div>
@@ -22,7 +23,6 @@
 
 <script>
   // TODO: make custom logo
-  // TODO: send with enter
 import HeaderNav from "@/components/HeaderNav";
 import ButtonStandard from "@/components/ButtonStandard";
 import {ref} from "vue";
@@ -35,7 +35,13 @@ export default {
     const user = ref(null);
     const password = ref(null);
     const error = ref(false);
+    const passwordFieldType = ref("password");
     const router = useRouter();
+
+
+    const switchVisibility = () => {
+      passwordFieldType.value = passwordFieldType.value === "password" ? "text" : "password";
+    };
 
     const login = () => {
       if(user.value === 'admin' && password.value === 'Gino23'){
@@ -48,7 +54,18 @@ export default {
       }
     };
 
-    return {user, password, error, login}
+    return {user, password, error, passwordFieldType, login, switchVisibility}
   }
 }
 </script>
+
+<style scoped>
+  .hideShowPassword{
+    position: absolute;
+    top: 25%;
+    right: 5%;
+    border-radius: 20px;
+    border: solid 1px var(--aliceblue);
+    padding: 0 15px;
+  }
+</style>

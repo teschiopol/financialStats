@@ -5,6 +5,9 @@
 </template>
 
 <script>
+  // TODO: sign up
+  // TODO: password check strength
+  // TODO: sign up with google
   import HeaderNav from "@/components/HeaderNav";
   export default {
     name: "HomeBase",
