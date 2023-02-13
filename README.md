@@ -1,6 +1,6 @@
 # Financial Stats 📊
 
-[![CI-test](https://github.com/teschiopol/financialStats/actions/workflows/test.yml/badge.svg?branch=master)](https://github.com/teschiopol/financialStats/actions)
+[![CI-test-todo](https://github.com/teschiopol/financialStats/actions/workflows/test.yml/badge.svg)](https://github.com/teschiopol/financialStats/actions/workflows/test.yml)
 [![CodeFactor](https://www.codefactor.io/repository/github/teschiopol/financialstats/badge)](https://www.codefactor.io/repository/github/teschiopol/financialstats)
 [![CC BY-NC-SA 4.0][cc-by-nc-sa-shield]][cc-by-nc-sa]
 
