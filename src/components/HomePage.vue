@@ -1,7 +1,5 @@
 <template>
-  <div>
-    <HeaderNav/>
-  </div>
+  <HeaderNav/>
 </template>
 
 <script>
