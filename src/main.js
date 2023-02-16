@@ -2,6 +2,7 @@ import { createApp } from 'vue'
 import App from './App.vue'
 import router from "@/routers";
 import mixinTitle from './mixins/title';
+import 'vue3-easy-data-table/dist/style.css';
 
 // import css
 import './assets/css/global.css';
