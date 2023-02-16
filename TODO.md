@@ -6,7 +6,7 @@
 
 - [ ] src/components/HomePage.vue:8:  // TODO: sign up with google 
 
-- [ ] src/components/HomePage.vue:16:  // TODO: api get cookie token auth 
+- [ ] src/components/HomePage.vue:17:  // TODO: api get cookie token auth 
 
 - [ ] src/components/LoginPage.vue:25:  // TODO: make custom logo 
 
