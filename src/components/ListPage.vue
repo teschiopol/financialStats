@@ -8,6 +8,7 @@
   import PaginationNav from "@/components/PaginationNav";
   export default {
     name: "ListPage",
+    title: "List",
     components: {
       PaginationNav,
       HeaderNav

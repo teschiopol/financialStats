@@ -6,6 +6,7 @@
   import HeaderNav from "@/components/HeaderNav";
   export default {
     name: "RelevancePage",
+    title: "Relevance",
     components: {
       HeaderNav
     },
