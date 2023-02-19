@@ -59,7 +59,6 @@
     background-color: var(--darkcyan);
     color: var(--aliceblue);
     border: 2px solid var(--darkcyan);
-    float: right;
   }
   .typeThree:hover {
     background-color: var(--aliceblue);

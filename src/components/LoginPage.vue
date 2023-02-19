@@ -7,7 +7,7 @@
       <div class="input-container ic1">
         <input id="user" class="input" type="text" placeholder="" autocomplete="off" v-model="user" />
         <div class="cut"></div>
-        <label for="user" class="placeholder">User</label>
+        <label for="user" class="placeholder">Username</label>
       </div>
       <div class="input-container ic1" style="margin-bottom: 40px">
         <i class="hideShowPassword" @mousedown="switchVisibility" @mouseup="switchVisibility">👀</i>
@@ -15,10 +15,10 @@
         <div class="cut"></div>
         <label for="password" class="placeholder">Password</label>
       </div>
-      <ButtonStandard label="Login 🔒" @click="login" />
       <ButtonStandard label="SignUp 👤" @click="signUp" type-class="typeThree"/>
+      <ButtonStandard label="Login 🔒" @click="login" style="float: right;"/>
       <div class="recovery">
-        <a @click="recoveryPwd">Recovery Password</a>
+        <router-link to="/recovery-password">Recovery Password</router-link>
       </div>
       <div class="error" v-if="error">
         Login Error!
@@ -46,11 +46,11 @@
       const passwordFieldType = ref("password");
       const router = useRouter();
 
-
       const switchVisibility = () => {
         passwordFieldType.value = passwordFieldType.value === "password" ? "text" : "password";
       };
 
+  // TODO: api auth
       const login = () => {
         if(user.value === 'admin' && password.value === 'Gino23'){
           localStorage.setItem('user-info', 'admin');
@@ -61,16 +61,12 @@
           error.value = true;
         }
       };
-  // TODO: signup
+
       const signUp = () => {
-        console.log('sign');
-        //this.$router.push({name:"SignUp"});
+        router.push({
+          name: 'SignUp'
+        });
       };
-  // TODO: recovery pwd
-      const recoveryPwd = () => {
-        console.log('pwd');
-        //this.$router.push({name:"RecoveryPwd"});
-      }
 
       const particleConfig =  {
         "particles": {
@@ -178,7 +174,7 @@
         "retina_detect": true
       };
 
-      return {user, password, error, passwordFieldType, particleConfig, login, switchVisibility, signUp, recoveryPwd}
+      return {user, password, error, passwordFieldType, particleConfig, login, switchVisibility, signUp}
     }
   }
 </script>

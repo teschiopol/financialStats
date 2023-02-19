@@ -34,7 +34,7 @@
     top: -20px;
     transform: translateY(0);
     transition: transform 200ms;
-    width: 76px;
+    width: 125px;
 }
 
 .input:focus ~ .cut,
