@@ -55,4 +55,17 @@
   .typeTwo:active{
     background-color: var(--red);
   }
+  .typeThree {
+    background-color: var(--darkcyan);
+    color: var(--aliceblue);
+    border: 2px solid var(--darkcyan);
+    float: right;
+  }
+  .typeThree:hover {
+    background-color: var(--aliceblue);
+    color: var(--darkcyan);
+  }
+  .typeThree:active{
+    background-color: var(--cyan);
+  }
 </style>

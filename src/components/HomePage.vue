@@ -3,7 +3,6 @@
 </template>
 
 <script>
-  // TODO: sign up
   // TODO: password check strength
   // TODO: sign up with Google
   import HeaderNav from "@/components/HeaderNav";
