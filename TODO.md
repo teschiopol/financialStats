@@ -1,12 +1,12 @@
 ## TODO ✅
 
+- [ ] src/App.vue:6:  // TODO: split components 
+
 - [ ] src/assets/css/color.css:15:  /* TODO: dark mode */ 
 
 - [ ] src/assets/css/global.css:58:  /* TODO: custom responsive not available page */ 
 
-- [ ] src/components/LoginPage.vue:64:  // TODO: signup 
-
-- [ ] src/components/LoginPage.vue:69:  // TODO: recovery pwd 
+- [ ] src/components/LoginPage.vue:53:  // TODO: api auth 
 
 - [ ] src/components/HomePage.vue:6:  // TODO: password check strength 
 
@@ -19,4 +19,8 @@
 - [ ] src/components/RelevancePage.vue:25:  // TODO: how to handle if sortable? 
 
 - [ ] src/components/PaginationNav.vue:6:  <!-- TODO: search autocomplete over 3 letters 
+
+- [ ] src/components/RegistrationPage.vue:42:  // TODO: signup 
+
+- [ ] src/components/RecoveryPasswordPage.vue:44:  // TODO: reset 
 
