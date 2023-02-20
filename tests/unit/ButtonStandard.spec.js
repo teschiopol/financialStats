@@ -49,7 +49,6 @@ describe("ButtonStandard", () => {
                 typeClass: ""
             }
         });
-        console.log(wrapper.classes());
         expect(wrapper.classes()).not.toContain("typeOne");
         expect(wrapper.classes()).toStrictEqual(["button"]);
     });

@@ -9,7 +9,7 @@ describe("HeaderNav", () => {
           }
       });
       expect(wrapper.text()).toContain("Develop by Unicorne");
-       expect(wrapper.text()).not.toContain("Logout");
+      expect(wrapper.text()).not.toContain("Logout");
    });
 
     it("Render logged", () => {
