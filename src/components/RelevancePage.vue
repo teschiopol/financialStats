@@ -36,8 +36,11 @@
         { code: "REG", name: "Regret",  description: "I want my money back"}
       ]);
 
-      console.log(typeof item.value);
-      console.log(item.value.sort((a, b) => a.code - b.code));
+      let res = async () => {
+        await fetch("http://localhost:5000")
+      };
+
+      console.log(res());
 
       return {header, item};
     }
