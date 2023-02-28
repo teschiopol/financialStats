@@ -39,13 +39,19 @@
               }
           )
 
+          let data = props.filteredList;
+
           if (el["Order"] === '↑') {
             el["Order"] = '↓';
+            data.sort((a,b) => {
+              return b[el['Name']].localeCompare(a[el['Name']]);
+            });
           } else {
             el["Order"] = '↑';
+            data.sort((a,b) => {
+              return (a[el['Name']].localeCompare(b[el['Name']]));
+            });
           }
-
-  // TODO: Sort real
         }
       };
 

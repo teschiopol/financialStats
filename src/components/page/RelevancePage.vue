@@ -23,7 +23,7 @@
     setup(){
   // TODO: retrieve by api. Name colum as head, data es item
       const header = ref([
-        {"Name":"Code", "Sort":true, "Order":"↓"},
+        {"Name":"Code", "Sort":true, "Order":""},
         {"Name":"Name","Sort":true, "Order":""},
         {"Name":"Description","Sort":false}
       ]);
