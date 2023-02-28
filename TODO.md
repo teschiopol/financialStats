@@ -18,9 +18,7 @@
 
 - [ ] src/components/page/RegistrationPage.vue:42:  // TODO: signup 
 
+- [ ] src/components/page/CategoryPage.vue:27:  // TODO: retrieve by api. Name colum as head, data es item 
+
 - [ ] src/components/page/RecoveryPasswordPage.vue:44:  // TODO: reset 
-
-- [ ] src/components/PaginationNav.vue:6:  <!-- TODO: search autocomplete over 3 letters 
-
-- [ ] src/components/standard/TableStandard.vue:48:  // TODO: Sort real 
 
