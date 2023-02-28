@@ -46,6 +46,11 @@
       const passwordFieldType = ref("password");
       const router = useRouter();
 
+      let userLogged = localStorage.getItem('user-info');
+      if(userLogged){
+        router.push({name:"Home"});
+      }
+
       const switchVisibility = () => {
         passwordFieldType.value = passwordFieldType.value === "password" ? "text" : "password";
       };
