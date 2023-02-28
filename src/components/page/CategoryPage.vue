@@ -25,16 +25,20 @@
     },
     setup(){
   // TODO: retrieve by api. Name colum as head, data es item
+  // TODO: filter
+  // TODO: dynamic show total by month
       const header = ref([
-        {"Name":"Code", "Sort":true, "Order":""},
         {"Name":"Name","Sort":true, "Order":""},
         {"Name":"Description","Sort":false},
+        {"Name":"Relevance", "Sort":true, "Order":""},
         {"Name":"Total","Sort":true, "Order":""}
       ]);
 
       const item = ref([
-        { Code: "ESS", Name: "Essential",  Description: "You need it to live", Total: 4},
-        { Code: "USE", Name: "Useful",  Description: "It can improve your life", Total: 23}
+        { Name: "Casa", Description: "Home, utilities, rent",  Relevance: "Essential", Total: 40.22},
+        { Name: "Auto", Description: "Car, fuel",  Relevance: "Essential", Total: 23.0},
+        { Name: "Extra", Description: "Everything extra",  Relevance: "Useless", Total: 100},
+        { Name: "Gym", Description: "Gym, integrator",  Relevance: "Useful", Total: 34.00}
       ]);
 
       return {header, item};

@@ -9,7 +9,7 @@
     </thead>
     <tbody>
       <tr v-for="item in filteredList" :key='item'>
-        <td v-for="field in head" :key='field["Name"]' :class="alignType(item[field['Name']])">{{item[field["Name"]]}}</td>
+        <td v-for="field in head" :key='field["Name"]' :class="alignType(item[field['Name']])">{{cast(item[field["Name"]])}}</td>
       </tr>
     </tbody>
   </table>
@@ -71,7 +71,14 @@
         return '';
       }
 
-      return {alignType, sortTable};
+      const cast = (value) => {
+        if(typeof value === 'number'){
+          return (Math.round(value * 100) / 100).toFixed(2);
+        }
+        return value;
+      };
+
+      return {alignType, sortTable, cast};
     }
   }
 </script>
