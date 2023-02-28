@@ -1,11 +1,11 @@
-import LoginPage from "@/components/LoginPage";
-import HomePage from "@/components/HomePage";
-import ListPage from "@/components/ListPage";
-import CategoryPage from "@/components/CategoryPage";
-import RelevancePage from "@/components/RelevancePage";
-import NotFoundPage from "@/components/NotFoundPage";
-import RecoveryPasswordPage from "@/components/RecoveryPasswordPage";
-import RegistrationPage from "@/components/RegistrationPage";
+import LoginPage from "@/components/page/LoginPage";
+import HomePage from "@/components/page/HomePage";
+import ListPage from "@/components/page/ListPage";
+import CategoryPage from "@/components/page/CategoryPage";
+import RelevancePage from "@/components/page/RelevancePage";
+import NotFoundPage from "@/components/page/NotFoundPage";
+import RecoveryPasswordPage from "@/components/page/RecoveryPasswordPage";
+import RegistrationPage from "@/components/page/RegistrationPage";
 import {createRouter, createWebHistory} from "vue-router";
 
 const routes = [

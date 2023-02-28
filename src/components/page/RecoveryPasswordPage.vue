@@ -1,7 +1,7 @@
 <template>
   <HeaderNav :logged="false"/>
     <div class="login">
-      <img class="logo" src="../assets/images/logo_nopo.png" alt="logo-financial-stats"/>
+      <img class="logo" src="../../assets/images/logo_nopo.png" alt="logo-financial-stats"/>
       <h1>Recovery Password</h1>
       <div class="input-container ic1">
         <input id="email" class="input" type="text" placeholder="" autocomplete="off" v-model="email" />
