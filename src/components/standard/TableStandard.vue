@@ -9,13 +9,14 @@
     </thead>
     <tbody>
       <tr v-for="item in filteredList" :key='item'>
-        <td v-for="field in head" :key='field["Name"]'>{{item[field["Name"]]}}</td>
+        <td v-for="field in head" :key='field["Name"]' :class="alignType(item[field['Name']])">{{item[field["Name"]]}}</td>
       </tr>
     </tbody>
   </table>
 </template>
 
 <script >
+
   export default {
     name: "TableStandard",
     props:{
@@ -44,25 +45,40 @@
           if (el["Order"] === '↑') {
             el["Order"] = '↓';
             data.sort((a,b) => {
-              return b[el['Name']].localeCompare(a[el['Name']]);
+              if(typeof a[el['Name']] === 'string'){
+                return b[el['Name']].localeCompare(a[el['Name']]);
+              }else{
+                return b[el['Name']] - a[el['Name']];
+              }
             });
           } else {
             el["Order"] = '↑';
             data.sort((a,b) => {
-              return (a[el['Name']].localeCompare(b[el['Name']]));
+              if(typeof a[el['Name']] === 'string') {
+                return (a[el['Name']].localeCompare(b[el['Name']]));
+              }else{
+                return a[el['Name']] - b[el['Name']];
+              }
             });
           }
         }
       };
 
-      return {sortTable};
+      const alignType = (type) =>{
+        if (typeof type === 'number'){
+          return 'align';
+        }
+        return '';
+      }
+
+      return {alignType, sortTable};
     }
   }
 </script>
 
 <style scoped>
   table{
-    margin: 40px auto 0;
+    margin: 1em auto 0;
     min-width: 600px;
   }
 
@@ -85,5 +101,9 @@
     text-align: left;
     background-color: var(--suscyan);
     color: var(--aliceblue);
+  }
+
+  .align{
+    text-align: right;
   }
 </style>

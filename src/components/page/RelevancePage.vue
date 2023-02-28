@@ -39,3 +39,9 @@
     }
   }
 </script>
+
+<style scoped>
+  #tableComponent{
+    margin-top: 4em;
+  }
+</style>
