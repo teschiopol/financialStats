@@ -6,6 +6,7 @@
   // TODO: split components
   // TODO: compare section
   // TODO: forecast
+  // TODO: set scroll without bar e dimension max table category
   export default {
     name: 'App'
   }
