@@ -8,28 +8,13 @@
     </div>
     <div class="ds-skill">
       <h6>Relevance</h6>
-      <div class="skill html">
-        <h6>Essential</h6>
-        <div class="bar bar-html">
-          <p>95%</p>
+      <div v-for="item in relevance" :key="item" class="skill">
+        <div>
+          <h6 style="float: left">{{item.id}}</h6>
+          <h6 style="float: right">{{item.value}}</h6>
         </div>
-      </div>
-      <div class="skill css">
-        <h6>Useful</h6>
-        <div class="bar bar-css">
-          <p>90%</p>
-        </div>
-      </div>
-      <div class="skill javascript">
-        <h6>Useless</h6>
-        <div class="bar bar-js">
-          <p>75%</p>
-        </div>
-      </div>
-      <div class="skill javascript">
-        <h6>Regret</h6>
-        <div class="bar bar-js">
-          <p>10%</p>
+        <br>
+        <div class="bar" :style="{width: item.value}">
         </div>
       </div>
     </div>
@@ -37,9 +22,20 @@
 </template>
 
 <script>
-  // TODO: handle data with props
   export default {
-    name: "CardStandard"
+    name: "CardStandard",
+    props:{
+      relevance:{
+        type: Array
+      }
+    },
+    setup(props){
+      props.relevance.forEach(
+          (el) => {
+            el.value = `${el.value}%`;
+          }
+      );
+    }
   }
 </script>
 
@@ -121,44 +117,9 @@
     padding-top: 5px;
     animation: fadeIn 5s;
   }
-  .bar-html {
-    width: 95%;
-    animation: htmlSkill 1s;
-    animation-delay: .4s;
-  }
-  .bar-css {
-    width: 90%;
-    animation: cssSkill 2s;
-    animation-delay: .4s;
-  }
-  .bar-js {
-    width: 75%;
-    animation: jsSkill 3s;
-    animation-delay: .4s;
-  }
 
   @keyframes fadeIn {
     0% {opacity: 0;}
     100% {opacity: 1;}
-  }
-
-  @keyframes htmlSkill {
-    0% {width: 0;}
-    100% {width: 95%;}
-  }
-
-  @keyframes cssSkill {
-    0% {width: 0;}
-    100% {width: 90%;}
-  }
-
-  @keyframes jsSkill {
-    0% {width: 0;}
-    100% {width: 75%;}
-  }
-
-  @keyframes mvBottom {
-    0% {bottom: -150px;}
-    100% {bottom: 10px;}
   }
 </style>
