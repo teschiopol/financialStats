@@ -3,6 +3,8 @@ import App from './App.vue'
 import router from "@/routers";
 import mixinTitle from './mixins/title';
 
+import '@fortawesome/fontawesome-free/js/all';
+
 // import css
 import './assets/css/global.css';
 import './assets/css/form.css';

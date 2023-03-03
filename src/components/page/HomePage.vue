@@ -1,5 +1,6 @@
 <template>
   <HeaderNav/>
+  <SidebarStandard />
   <div style="width:35%; display:inline-block;">
     <CardStandard :relevance="relevance"/>
   </div>
@@ -23,10 +24,13 @@
   import ChartStandard from "@/components/standard/ChartStandard";
   import ButtonStandard from "@/components/standard/ButtonStandard";
   import CheckboxStandard from "@/components/standard/CheckboxStandard";
+  import router from "@/routers";
+  import SidebarStandard from "@/components/standard/SidebarStandard";
   export default {
     name: "HomePage",
     title: "Home",
     components: {
+      SidebarStandard,
       CheckboxStandard,
       ButtonStandard,
       ChartStandard,
@@ -38,7 +42,7 @@
   // TODO: api get cookie token auth
       let user = localStorage.getItem('user-info');
       if(!user){
-        this.$router.push({name:"Login"});
+        router.push({name:"Login"});
       }
 
       const ch = ref(0);

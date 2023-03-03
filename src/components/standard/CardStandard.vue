@@ -1,7 +1,7 @@
 <template>
   <div class="card">
     <div class="ds-top">
-      <span>Totale Speso</span>
+      <span>Saldo Attuale</span>
     </div>
     <div class="name">
       <span>90.00</span>
