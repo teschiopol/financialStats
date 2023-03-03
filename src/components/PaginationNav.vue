@@ -19,8 +19,8 @@
 </template>
 
 <script>
-  import ButtonStandard from "@/components/ButtonStandard";
-  import ModalComponent from "@/components/ModalStandard";
+  import ButtonStandard from "@/components/standard/ButtonStandard";
+  import ModalComponent from "@/components/standard/ModalStandard";
   import {ref} from 'vue';
   export default {
     name: "PaginationNav",

@@ -14,7 +14,7 @@
 </template>
 
 <script>
-import ButtonStandard from "@/components/ButtonStandard";
+import ButtonStandard from "@/components/standard/ButtonStandard";
 export default {
   name: "ModalStandard",
   components: {

@@ -27,7 +27,7 @@
 
 <script>
   import HeaderNav from "@/components/HeaderNav";
-  import ButtonStandard from "@/components/ButtonStandard";
+  import ButtonStandard from "@/components/standard/ButtonStandard";
   import {ref} from "vue";
   export default {
     name: "RegistrationPage",

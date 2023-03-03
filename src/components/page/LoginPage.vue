@@ -30,7 +30,7 @@
 
 <script>
   import HeaderNav from "@/components/HeaderNav";
-  import ButtonStandard from "@/components/ButtonStandard";
+  import ButtonStandard from "@/components/standard/ButtonStandard";
   import VueParticle from 'vue-particlejs';
   import {ref} from "vue";
   import { useRouter } from 'vue-router'
