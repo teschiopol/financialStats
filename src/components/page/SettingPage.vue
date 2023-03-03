@@ -1,22 +1,17 @@
 <template>
   <HeaderNav/>
   <SidebarStandard/>
-  <PaginationNav/>
+  <h2 style="text-align: center">Setting</h2>
 </template>
 
 <script>
-  import HeaderNav from "@/components/HeaderNav";
-  import PaginationNav from "@/components/PaginationNav";
-  import SidebarStandard from "@/components/standard/SidebarStandard";
   import router from "@/routers";
+  import HeaderNav from "@/components/HeaderNav";
+  import SidebarStandard from "@/components/standard/SidebarStandard";
   export default {
-    name: "ListPage",
-    title: "List",
-    components: {
-      SidebarStandard,
-      PaginationNav,
-      HeaderNav
-    },
+    name: "SettingPage",
+    components: {SidebarStandard, HeaderNav},
+    title: "Settings",
     setup() {
       let user = localStorage.getItem('user-info');
       if (!user) {
@@ -25,3 +20,7 @@
     }
   }
 </script>
+
+<style scoped>
+
+</style>

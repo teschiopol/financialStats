@@ -1,5 +1,6 @@
 <template>
   <HeaderNav/>
+  <SidebarStandard/>
   <TableStandard :head="header" :filteredList="item" />
 </template>
 
@@ -7,10 +8,12 @@
   import HeaderNav from "@/components/HeaderNav";
   import TableStandard from "@/components/standard/TableStandard";
   import {ref} from "vue";
+  import SidebarStandard from "@/components/standard/SidebarStandard";
   export default {
     name: "RelevancePage",
     title: "Relevance",
     components: {
+      SidebarStandard,
       TableStandard,
       HeaderNav
     },
@@ -41,7 +44,5 @@
 </script>
 
 <style scoped>
-  #tableComponent{
-    margin-top: 4em;
-  }
+
 </style>

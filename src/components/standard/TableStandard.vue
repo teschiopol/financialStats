@@ -85,7 +85,7 @@
 
 <style scoped>
   table{
-    margin: 1em auto 0;
+    margin: 4em auto 0;
     min-width: 600px;
   }
 

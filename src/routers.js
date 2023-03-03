@@ -6,6 +6,7 @@ import RelevancePage from "@/components/page/RelevancePage";
 import NotFoundPage from "@/components/page/NotFoundPage";
 import RecoveryPasswordPage from "@/components/page/RecoveryPasswordPage";
 import RegistrationPage from "@/components/page/RegistrationPage";
+import SettingPage from "@/components/page/SettingPage";
 import {createRouter, createWebHistory} from "vue-router";
 
 const routes = [
@@ -43,6 +44,11 @@ const routes = [
         name: "RecoveryPassword",
         component: RecoveryPasswordPage,
         path: "/recovery-password"
+    },
+    {
+        name: "SettingPage",
+        component: SettingPage,
+        path: "/settings"
     },
     {
         name: "404",

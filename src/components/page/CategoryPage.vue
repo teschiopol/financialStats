@@ -1,7 +1,8 @@
 <template>
   <HeaderNav/>
-  <PaginationNav/>
+  <SidebarStandard/>
   <TableStandard :head="header" :filteredList="item" />
+  <PaginationNav/>
 </template>
 
 <script>
@@ -9,10 +10,12 @@
   import PaginationNav from "@/components/PaginationNav";
   import TableStandard from "@/components/standard/TableStandard";
   import {ref} from "vue";
+  import SidebarStandard from "@/components/standard/SidebarStandard";
   export default {
     name: "CategoryPage",
     title: "Category",
     components: {
+      SidebarStandard,
       PaginationNav,
       HeaderNav,
       TableStandard
