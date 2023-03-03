@@ -1,5 +1,5 @@
 import {mount} from "@vue/test-utils";
-import ButtonStandard from "@/components/ButtonStandard";
+import ButtonStandard from "@/components/standard/ButtonStandard";
 
 describe("ButtonStandard", () => {
    it("Render Label", () => {

@@ -18,7 +18,7 @@ describe("HeaderNav", () => {
                 logged: true
             }
         });
-        expect(wrapper.text()).toContain("Logout");
-        expect(wrapper.text()).not.toContain("Develop by Unicorne");
+        expect(wrapper.text()).toContain("Develop by Unicorne");
+        expect(wrapper.text()).toMatch(/(light|dark)/i);
     });
 });
