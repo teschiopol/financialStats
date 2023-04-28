@@ -1,6 +1,7 @@
 <template>
   <HeaderNav/>
   <SidebarStandard/>
+  <h2 style="text-align: center">Relevance</h2>
   <TableStandard :head="header" :filteredList="item" />
 </template>
 
