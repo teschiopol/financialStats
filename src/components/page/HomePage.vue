@@ -185,7 +185,8 @@
         }
       };
 
-      const config = ref(total);
+      const config = ref(null);
+      config.value = total;
 
       const changeChart = () => {
         switch (ch.value){
