@@ -4,7 +4,7 @@
       <span>Saldo Attuale</span>
     </div>
     <div class="name">
-      <span>90.00</span>
+      <span>{{ total }}</span>
     </div>
     <div class="ds-skill">
       <h6>Relevance</h6>
@@ -27,6 +27,9 @@
     props:{
       relevance:{
         type: Array
+      },
+      total:{
+        type: Number
       }
     },
     setup(props){

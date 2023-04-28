@@ -9,6 +9,7 @@
   import TableStandard from "@/components/standard/TableStandard";
   import {ref} from "vue";
   import SidebarStandard from "@/components/standard/SidebarStandard";
+  import {useRelevance} from "@/composable/useRelevance";
   export default {
     name: "RelevancePage",
     title: "Relevance",
@@ -31,12 +32,8 @@
         {"Name":"Value", "Sort":true, "Order":""},
       ]);
 
-      const item = ref([
-        { Name: "Essential",  Description: "You need it to live", Value: "5"},
-        { Name: "Useful",  Description: "It can improve your life", Value: "4"},
-        { Name: "Useless",  Description: "You can live without it", Value: "2"},
-        { Name: "Regret",  Description: "I want my money back", Value: "0"}
-      ]);
+      const item = ref([]);
+      item.value = useRelevance();
 
       return {header, item};
     }

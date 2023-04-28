@@ -2,7 +2,7 @@
   <HeaderNav/>
   <SidebarStandard />
   <div style="width:35%; display:inline-block;">
-    <CardStandard :relevance="relevance"/>
+    <CardStandard :relevance="relevance" :total="balance"/>
   </div>
   <div style="width:65%; display:inline-block;">
     <ChartStandard :configuration="config" :key="ch"/>
@@ -26,6 +26,7 @@
   import CheckboxStandard from "@/components/standard/CheckboxStandard";
   import router from "@/routers";
   import SidebarStandard from "@/components/standard/SidebarStandard";
+  import {useBalance, useRelevancePer} from "@/composable/useHome";
   export default {
     name: "HomePage",
     title: "Home",
@@ -48,9 +49,11 @@
       const ch = ref(0);
       const label = ref('Categories 📚');
 
-      const relevance = ref([
-        {id:"Essentials", value:40}, {id:"Useful",value:39}, {id:"Useless",value:14}, {id:"Regret",value:7}
-      ]);
+      const balance = ref(0);
+      balance.value = useBalance();
+
+      const relevance = ref([]);
+      relevance.value = useRelevancePer();
 
       const total = {
         type: 'line',
@@ -221,7 +224,7 @@
         }
       }
 
-      return {relevance, config, ch, label, changeChart, compare};
+      return {relevance, config, ch, label, balance, changeChart, compare};
     }
   }
 </script>

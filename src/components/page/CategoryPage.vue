@@ -2,21 +2,19 @@
   <HeaderNav/>
   <SidebarStandard/>
   <TableStandard :head="header" :filteredList="item" />
-  <PaginationNav/>
 </template>
 
 <script>
   import HeaderNav from "@/components/HeaderNav";
-  import PaginationNav from "@/components/PaginationNav";
   import TableStandard from "@/components/standard/TableStandard";
   import {ref} from "vue";
   import SidebarStandard from "@/components/standard/SidebarStandard";
+  import {useCategory} from "@/composable/useCategory";
   export default {
     name: "CategoryPage",
     title: "Category",
     components: {
       SidebarStandard,
-      PaginationNav,
       HeaderNav,
       TableStandard
     },
@@ -37,12 +35,8 @@
         {"Name":"Total","Sort":true, "Order":""}
       ]);
 
-      const item = ref([
-        { Name: "Casa", Description: "Home, utilities, rent",  Relevance: "Essential", Total: 40.22},
-        { Name: "Auto", Description: "Car, fuel",  Relevance: "Essential", Total: 23.0},
-        { Name: "Extra", Description: "Everything extra",  Relevance: "Useless", Total: 100},
-        { Name: "Gym", Description: "Gym, integrator",  Relevance: "Useful", Total: 34.00}
-      ]);
+      const item = ref([]);
+      item.value = useCategory();
 
       return {header, item};
     }

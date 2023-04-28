@@ -1,27 +1,41 @@
 <template>
   <HeaderNav/>
   <SidebarStandard/>
-  <PaginationNav/>
+  <TableStandard :head="header" :filteredList="item" />
 </template>
 
 <script>
   import HeaderNav from "@/components/HeaderNav";
-  import PaginationNav from "@/components/PaginationNav";
   import SidebarStandard from "@/components/standard/SidebarStandard";
-  import router from "@/routers";
+  import TableStandard from "@/components/standard/TableStandard";
+  import {ref} from "vue";
+  import {useListAll} from "@/composable/useList";
   export default {
     name: "ListPage",
     title: "List",
     components: {
       SidebarStandard,
-      PaginationNav,
-      HeaderNav
+      HeaderNav,
+      TableStandard
     },
-    setup() {
+    mounted() {
       let user = localStorage.getItem('user-info');
       if (!user) {
-        router.push({name:"Login"});
+        this.$router.push({name:"Login"});
       }
+    },
+    setup(){
+      const header = ref([
+        {"Name":"Date","Sort":true, "Order":""},
+        {"Name":"Description","Sort":true, "Order":""},
+        {"Name":"Category", "Sort":true, "Order":""},
+        {"Name":"Amount","Sort":true, "Order":""}
+      ]);
+
+      const item = ref([]);
+      item.value = useListAll();
+
+      return {header, item};
     }
   }
 </script>
