@@ -70,7 +70,7 @@
           labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
           datasets: [{
             label: 'Balance Total',
-            data: [12, 19, 3, 5, 2, 3, 18, 32, 21, 21, 6, 33],
+            data: [12, 19, 3, -4, 2, 3, 18, 32, 21, 21, -20, 33],
             borderWidth: 1,
             borderColor: 'orange',
             tension: 0.1
@@ -79,7 +79,15 @@
         options: {
           scales: {
             y: {
-              beginAtZero: true
+              grid: {
+                color: (context) => {
+                  if (context.tick.$context.tick.value === 0){
+                    return 'black';
+                  }else{
+                    return 'lightgrey';
+                  }
+                },
+              }
             }
           }
         }
@@ -105,13 +113,6 @@
               tension: 0.1
             }
           ]
-        },
-        options: {
-          scales: {
-            y: {
-              beginAtZero: true
-            }
-          }
         }
       };
 
@@ -139,13 +140,6 @@
               data: [7],
               borderWidth: 1
             }]
-        },
-        options: {
-          scales: {
-            y: {
-              beginAtZero: true
-            }
-          }
         }
       };
 
@@ -175,13 +169,6 @@
               borderWidth: 1
             }
           ]
-        },
-        options: {
-          scales: {
-            y: {
-              beginAtZero: true
-            }
-          }
         }
       };
 
