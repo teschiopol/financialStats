@@ -1,20 +1,20 @@
 <template>
   <div class="card">
-    <div class="ds-top">
+    <div class="ds-top" :class="customClassBg">
       <span>Saldo Attuale</span>
     </div>
     <div class="name">
-      <span>{{ total }}</span>
+      <span :class="customClass">{{ total }}</span>
     </div>
     <div class="ds-skill">
-      <h6>Relevance</h6>
+      <h6 :class="customClass">Relevance</h6>
       <div v-for="item in relevance" :key="item" class="skill">
         <div>
           <h6 style="float: left">{{item.id}}</h6>
           <h6 style="float: right">{{item.value}}</h6>
         </div>
         <br>
-        <div class="bar" :style="{width: item.value}">
+        <div class="bar" :class="customClassBg" :style="{width: item.value}">
         </div>
       </div>
     </div>
@@ -29,7 +29,13 @@
         type: Array
       },
       total:{
-        type: Number
+        type: String
+      },
+      customClassBg:{
+        type: String
+      },
+      customClass:{
+        type: String
       }
     },
     setup(props){
@@ -46,7 +52,7 @@
   .card {
     margin: 4em auto auto;
     width: 250px;
-    height: 400px;
+    height: 420px;
     border-radius: 10px;
     box-shadow: 0 10px 25px 5px rgba(0, 0, 0, 0.2);
     background: var(--susblack);
@@ -57,7 +63,6 @@
     margin: auto;
     width: 250px;
     height: 30px;
-    background: var(--crimson);
     text-align: center;
     padding-top: 10px;
   }
@@ -77,16 +82,13 @@
     border: solid 2px var(--white);
   }
   .name span {
-    color: var(--white);
     text-decoration: none;
     font-weight: 700;
     font-size: 18px;
     display: inline-block;
     margin-top: 39px;
   }
-  .name:hover span{
-    color: var(--crimson);
-  }
+
   .ds-skill {
     margin: auto;
     width: 200px;
@@ -97,7 +99,6 @@
     font-weight: 700;
     font-size: 0.8em;
     text-transform: uppercase;
-    color: var(--crimson);
   }
   .skill{
     margin-top: 15px;
@@ -111,7 +112,6 @@
   }
   .bar {
     height: 5px;
-    background: var(--crimson);
     text-align: right;
   }
   .bar p {
@@ -125,4 +125,19 @@
     0% {opacity: 0;}
     100% {opacity: 1;}
   }
+
+  .reddy-bg{
+    background: var(--crimson);
+  }
+  .reddy{
+    color: var(--crimson);
+  }
+
+  .greened-bc{
+    background: var(--green);
+  }
+  .greened{
+    color: var(--green);
+  }
+
 </style>

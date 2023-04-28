@@ -10,7 +10,8 @@ export function useCategory(){
         { Name: "Extra", Description: "Everything extra",  Relevance: "Useless", Total: calculate[2]},
         { Name: "Gym", Description: "Gym, integrator",  Relevance: "Useful", Total: calculate[3]},
         { Name: "Entertainment", Description: "Amazon, Spotify, Netflix",  Relevance: "Useful", Total: calculate[4]},
-        { Name: "Out", Description: "Dinner Out",  Relevance: "Useless", Total: calculate[5]}
+        { Name: "Out", Description: "Dinner Out",  Relevance: "Useless", Total: calculate[5]},
+        { Name: "Add", Description: "Rettifica, stipendi, guadagni",  Relevance: "Add", Total: calculate[6]},
     ];
 }
 
@@ -19,7 +20,7 @@ function calculateCategory(){
     let listAll = useListAll();
 
     let res = [
-        0,0,0,0,0,0
+        0,0,0,0,0,0,0
     ];
 
     listAll.forEach(el => {
@@ -41,6 +42,9 @@ function calculateCategory(){
                 break;
             case 'Out':
                 res[5] += el.Amount;
+                break;
+            case 'Add':
+                res[6] += el.Amount;
                 break;
         }
     });

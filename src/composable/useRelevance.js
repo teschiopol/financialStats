@@ -8,7 +8,8 @@ export function useRelevance(){
         { Name: "Essential",  Description: "You need it to live", Value: calculate[0]},
         { Name: "Useful",  Description: "It can improve your life", Value: calculate[1]},
         { Name: "Useless",  Description: "You can live without it", Value: calculate[2]},
-        { Name: "Regret",  Description: "I want my money back", Value: calculate[3]}
+        { Name: "Regret",  Description: "I want my money back", Value: calculate[3]},
+        { Name: "Add",  Description: "Earnings", Value: calculate[4]}
     ];
 }
 
@@ -17,7 +18,7 @@ function calculateRelevance(){
     let category = useCategory();
 
     let res = [
-        0,0,0,0
+        0,0,0,0,0
     ];
 
     category.forEach(el => {
@@ -33,6 +34,9 @@ function calculateRelevance(){
                 break;
             case 'Regret':
                 res[3] += el.Total;
+                break;
+            case 'Add':
+                res[4] += el.Total;
                 break;
         }
     });

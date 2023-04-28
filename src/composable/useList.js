@@ -1,6 +1,7 @@
 export function useListAll(){
 
     return [
+        { Date: "01/01/2023", Description: "Rettifica",  Category: "Add", Amount: 960.53},
         { Date: "01/02/2023", Description: "Benzina",  Category: "Auto", Amount: 20},
         { Date: "01/02/2023", Description: "Netflix",  Category: "Entertainment", Amount: 12.99},
         { Date: "01/02/2023", Description: "Credem",  Category: "Entertainment", Amount: 201},

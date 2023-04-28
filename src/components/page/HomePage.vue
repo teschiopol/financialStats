@@ -2,7 +2,7 @@
   <HeaderNav/>
   <SidebarStandard />
   <div style="width:35%; display:inline-block;">
-    <CardStandard :relevance="relevance" :total="balance"/>
+    <CardStandard :relevance="relevance" :total="balance" :custom-class="customClass" :custom-class-bg="customClassBg"/>
   </div>
   <div style="width:65%; display:inline-block;">
     <ChartStandard :configuration="config" :key="ch"/>
@@ -49,11 +49,20 @@
       const ch = ref(0);
       const label = ref('Categories 📚');
 
-      const balance = ref(0);
+      const customClassBg = ref("reddy-bg");
+      const customClass = ref("reddy");
+
+      const balance = ref("0");
       balance.value = useBalance();
+      if(parseInt(balance.value) > 0){
+        customClassBg.value = "greened-bc";
+        customClass.value = "greened";
+      }
 
       const relevance = ref([]);
       relevance.value = useRelevancePer();
+
+      // compare total sono i giorni dei mesi
 
       const total = {
         type: 'line',
@@ -224,7 +233,7 @@
         }
       }
 
-      return {relevance, config, ch, label, balance, changeChart, compare};
+      return {relevance, config, ch, label, balance, customClassBg, customClass, changeChart, compare};
     }
   }
 </script>
