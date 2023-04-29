@@ -27,6 +27,7 @@
   import router from "@/routers";
   import SidebarStandard from "@/components/standard/SidebarStandard";
   import {useBalance, useRelevancePer} from "@/composable/useHome";
+  import {useTotalMonth, useTotalYear} from "@/composable/useList";
   export default {
     name: "HomePage",
     title: "Home",
@@ -62,58 +63,46 @@
       const relevance = ref([]);
       relevance.value = useRelevancePer();
 
-      // compare total sono i giorni dei mesi
-
-      const total = {
-        type: 'line',
-        data: {
-          labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
-          datasets: [{
-            label: 'Balance Total',
-            data: [12, 19, 3, -4, 2, 3, 18, 32, 21, 21, -20, 33],
-            borderWidth: 1,
-            borderColor: 'orange',
-            tension: 0.1
-          }]
-        },
-        options: {
-          scales: {
-            y: {
-              grid: {
-                color: (context) => {
-                  if (context.tick.$context.tick.value === 0){
-                    return 'black';
-                  }else{
-                    return 'lightgrey';
-                  }
-                },
-              }
+      const option = {
+        scales: {
+          y: {
+            grid: {
+              color: (context) => {
+                if (context.tick.$context.tick.value === 0){
+                  return 'black';
+                }else{
+                  return 'lightgrey';
+                }
+              },
             }
           }
         }
       };
 
+      const totalData = useTotalYear();
+      const total = {
+        type: 'line',
+        data: {
+          labels: totalData[1],
+          datasets: [{
+            label: 'Balance Total',
+            data: totalData[0],
+            borderWidth: 1,
+            borderColor: 'orange',
+            tension: 0.1
+          }]
+        },
+        options: option
+      };
+
+      const totalCompareData = useTotalMonth();
       const totalCompare = {
         type: 'line',
         data: {
           labels: [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31],
-          datasets: [
-            {
-              label: 'January',
-              data: [1, 19, 3, 5, 2, 3, 18, 32, 21, 21, 6, 33, 1, 19, 3, 5, 2, 3, 18, 32, 21, 21, 6, 33],
-              borderWidth: 1,
-              borderColor: 'orange',
-              tension: 0.1
-            },
-            {
-              label: 'February',
-              data: [12, 19, 3, 5, 2, 3, 18, 32, 21, 21, 6, 33].reverse(),
-              borderWidth: 1,
-              borderColor: 'green',
-              tension: 0.1
-            }
-          ]
-        }
+          datasets: totalCompareData
+        },
+        options: option
       };
 
       const categories = {
