@@ -1,4 +1,5 @@
 import {useRandomColor} from "@/composable/useColor";
+import {useCategory} from "@/composable/useCategory";
 
 let month = [
     'January',
@@ -116,13 +117,74 @@ export function useTotalMonth(){
 }
 
 export function useCatTotal(){
-    let res = [[],[]];
-    return res;
+    let category = useCategory();
+    let data = [];
+    category.forEach(el => {
+        data.push({
+            label: el.Name,
+            data: [el.Total],
+            borderWidth: 1
+        });
+    });
+
+    return {
+        labels: ['Categories'],
+        datasets: data
+    };
 }
 
-export function useCatMonthly(){
-    let res = [[],[]];
+export function useCategoryMonthly(){
+    let list = useListAll();
+    let actual = '01';
+    let sum = [0,0,0,0,0,0,0];
+    let sumM = [];
+    let res = [[],[[],[],[],[],[],[],[]]];
+
+    for (let i = 0; i < list.length; i++) {
+        if(actual !== list[i].Date.split('/')[1]){
+            sumM.push(sum);
+            res[0].push(actual);
+            sum = [0,0,0,0,0,0,0];
+            actual = list[i].Date.split('/')[1];
+        }
+        switch (list[i].Category) {
+            case 'Casa':
+                sum[0] += list[i].Amount;
+                break;
+            case 'Auto':
+                sum[1] += list[i].Amount;
+                break;
+            case 'Extra':
+                sum[2] += list[i].Amount;
+                break;
+            case 'Gym':
+                sum[3] += list[i].Amount;
+                break;
+            case 'Entertainment':
+                sum[4] += list[i].Amount;
+                break;
+            case 'Out':
+                sum[5] += list[i].Amount;
+                break;
+            case 'Add':
+                sum[6] += list[i].Amount;
+                break;
+        }
+    }
+    sumM.push(sum);
+
+    sumM.forEach(el =>{
+        res[1][0].push(el[0]);
+        res[1][1].push(el[1]);
+        res[1][2].push(el[2]);
+        res[1][3].push(el[3]);
+        res[1][4].push(el[4]);
+        res[1][5].push(el[5]);
+        res[1][6].push(el[6]);
+    });
+
     return res;
+
 }
 
 export function useListAll(){

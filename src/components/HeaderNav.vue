@@ -5,7 +5,7 @@
       <a class="basic" href="https://www.unicorne.it/" target="_blank">Develop by Unicorne 🦄</a>
     </div>
     <div>
-      <button class="button" @click="toggle(!isDarkMode)">{{isDarkModeLabel}}</button>
+      <!--<button class="button" @click="toggle(!isDarkMode)">{{isDarkModeLabel}}</button>-->
     </div>
   </div>
 </template>

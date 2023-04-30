@@ -27,7 +27,7 @@
   import router from "@/routers";
   import SidebarStandard from "@/components/standard/SidebarStandard";
   import {useBalance, useRelevancePer} from "@/composable/useHome";
-  import {useTotalMonth, useTotalYear} from "@/composable/useList";
+  import {useCategoryMonthly, useCatTotal, useTotalMonth, useTotalYear} from "@/composable/useList";
   export default {
     name: "HomePage",
     title: "Home",
@@ -107,31 +107,10 @@
 
       const categories = {
         type: 'bar',
-        data: {
-          labels: ['Categories'],
-          datasets: [{
-            label: 'Casa',
-            data: [12],
-            borderWidth: 1
-          },
-            {
-              label: 'Auto',
-              data: [19],
-              borderWidth: 1
-            },
-            {
-              label: 'Extra',
-              data: [20],
-              borderWidth: 1
-            },
-            {
-              label: 'Gym',
-              data: [7],
-              borderWidth: 1
-            }]
-        }
+        data: useCatTotal()
       };
 
+      const totalUse = useCategoryMonthly();
       const totalCategories = {
         type: 'bar',
         data: {
@@ -139,22 +118,37 @@
           datasets: [
             {
               label: 'Casa',
-              data: [12, 19, 3, 5, 2, 3, 18, 32, 21, 21, 6, 33],
+              data: totalUse[1][0],
               borderWidth: 1
             },
             {
               label: 'Auto',
-              data: [12, 19, 3, 5, 2, 3, 18, 32, 21, 21, 6, 33].reverse(),
+              data: totalUse[1][1],
               borderWidth: 1
             },
             {
               label: 'Extra',
-              data: [12, 19, 3, 5, 2, 3, 18, 32, 21, 21, 6, 33].sort(),
+              data: totalUse[1][2],
               borderWidth: 1
             },
             {
               label: 'Gym',
-              data: [12, 1, 3, 15, 2, 33, 18, 2, 21, 14, 6, 54],
+              data: totalUse[1][3],
+              borderWidth: 1
+            },
+            {
+              label: 'Entertainment',
+              data: totalUse[1][4],
+              borderWidth: 1
+            },
+            {
+              label: 'Out',
+              data: totalUse[1][5],
+              borderWidth: 1
+            },
+            {
+              label: 'Add',
+              data: totalUse[1][6],
               borderWidth: 1
             }
           ]
