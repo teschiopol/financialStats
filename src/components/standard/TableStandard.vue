@@ -1,13 +1,13 @@
 <template>
   <table id="tableComponent">
-    <thead>
+    <thead style="display: block">
       <tr>
         <th v-for="field in head" :key='field["Name"]' @click="sortTable(field)" >
           {{field["Name"]}}  <span v-if="field['Sort']">{{field["Order"]}}</span>
         </th>
       </tr>
     </thead>
-    <tbody>
+    <tbody style="overflow: auto; max-height: 70vh; display: block;">
       <tr v-for="item in filteredList" :key='item'>
         <td v-for="field in head" :key='field["Name"]' :class="alignType(item[field['Name']])">{{cast(item[field["Name"]])}}</td>
       </tr>
