@@ -17,7 +17,7 @@ export function useRelevance(){
     return res;
 }
 
-function calculateRelevance(){
+export function calculateRelevance(){
 
     let category = useCategory();
 

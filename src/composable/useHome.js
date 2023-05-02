@@ -1,5 +1,5 @@
 import {useListAll} from "@/composable/useList";
-import {useRelevance} from "@/composable/useRelevance";
+import {calculateRelevance} from "@/composable/useRelevance";
 import {useRandomColor} from "@/composable/useColor";
 import {useCategory} from "@/composable/useCategory";
 
@@ -10,9 +10,9 @@ export function useBalance(){
 
     all.forEach(el=>{
         if(el.Category === 'Add'){
-            sum += el.Amount;
+            sum += el.Value;
         }else{
-            sum -= el.Amount;
+            sum -= el.Value;
         }
     });
 
@@ -21,31 +21,33 @@ export function useBalance(){
 
 export function useRelevancePer(){
 
-    let relevance = useRelevance();
+    let relevance = calculateRelevance();
+    let relK = Object.keys(relevance);
     let tot = 0;
     let res = [];
 
-    relevance.forEach(el => {
-        tot += el.Value;
+    relK.forEach(el => {
+        tot += relevance[el];
     });
 
     if(tot === 0){
-        res = [0,0,0,0,0];
+        relK.forEach(el => {
+            res.push({
+                id:el,
+                value: 0
+            });
+        });
     }else {
-        res[0] = (100 * relevance[0].Value) / tot;
-        res[1] = (100 * relevance[1].Value) / tot;
-        res[2] = (100 * relevance[2].Value) / tot;
-        res[3] = (100 * relevance[3].Value) / tot;
-        res[4] = (100 * relevance[4].Value) / tot;
+
+        relK.forEach(el => {
+           res.push({
+              id:el,
+              value: ((100*relevance[el]) / tot).toFixed(2)
+           });
+        });
     }
 
-    return [
-        {id:"Add", value:res[4].toFixed(2)},
-        {id:"Essentials", value:res[0].toFixed(2)},
-        {id:"Useful",value:res[1].toFixed(2)},
-        {id:"Useless",value:res[2].toFixed(2)},
-        {id:"Regret",value:res[3].toFixed(2)}
-    ];
+    return res;
 }
 
 let month = [
