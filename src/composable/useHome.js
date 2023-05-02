@@ -1,7 +1,7 @@
 import {useListAll} from "@/composable/useList";
 import {calculateRelevance} from "@/composable/useRelevance";
 import {useRandomColor} from "@/composable/useColor";
-import {useCategory} from "@/composable/useCategory";
+import {useCategory, useCatStruct} from "@/composable/useCategory";
 
 export function useBalance(){
 
@@ -87,9 +87,9 @@ export function useTotalYear(){
                 option+=1;
             }
             if (el.Category === 'Add') {
-                sum += el.Amount;
+                sum += el.Value;
             } else {
-                sum -= el.Amount;
+                sum -= el.Value;
             }
         });
 
@@ -146,9 +146,9 @@ export function useTotalMonth(){
                 actualDay = el.Date.split('/')[0];
             }
             if (el.Category === 'Add') {
-                parzSum += el.Amount;
+                parzSum += el.Value;
             } else {
-                parzSum -= el.Amount;
+                parzSum -= el.Value;
             }
         });
 
@@ -185,54 +185,38 @@ export function useCatTotal(){
 
 export function useCategoryMonthly(){
     let list = useListAll();
+    let cat = useCatStruct();
     let actual = '01';
-    let sum = [0,0,0,0,0,0,0];
-    let sumM = [];
-    let res = [[],[[],[],[],[],[],[],[]]];
+    let sum = {};
+    let resP = {};
+    cat.forEach(el => {
+        sum[el] = 0;
+        resP[el] = [];
+    });
+    let res = [];
 
     for (let i = 0; i < list.length; i++) {
         if(actual !== list[i].Date.split('/')[1]){
-            sumM.push(sum);
-            res[0].push(actual);
-            sum = [0,0,0,0,0,0,0];
+            //res[0].push(actual);
+            cat.forEach(el => {
+                resP[el].push(sum[el]);
+                sum[el] = 0;
+            });
             actual = list[i].Date.split('/')[1];
         }
-        switch (list[i].Category) {
-            case 'Casa':
-                sum[0] += list[i].Amount;
-                break;
-            case 'Auto':
-                sum[1] += list[i].Amount;
-                break;
-            case 'Extra':
-                sum[2] += list[i].Amount;
-                break;
-            case 'Gym':
-                sum[3] += list[i].Amount;
-                break;
-            case 'Entertainment':
-                sum[4] += list[i].Amount;
-                break;
-            case 'Out':
-                sum[5] += list[i].Amount;
-                break;
-            case 'Add':
-                sum[6] += list[i].Amount;
-                break;
-        }
+        sum[list[i].Category] += list[i].Value;
     }
-    sumM.push(sum);
-
-    sumM.forEach(el =>{
-        res[1][0].push(el[0]);
-        res[1][1].push(el[1]);
-        res[1][2].push(el[2]);
-        res[1][3].push(el[3]);
-        res[1][4].push(el[4]);
-        res[1][5].push(el[5]);
-        res[1][6].push(el[6]);
+    cat.forEach(el => {
+        resP[el].push(sum[el]);
     });
 
-    return res;
+    for (const [key, value] of Object.entries(resP)){
+        res.push({
+            label: key,
+            data: value,
+            borderWidth: 1
+        });
+    }
 
+    return res;
 }

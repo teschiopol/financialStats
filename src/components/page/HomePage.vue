@@ -113,43 +113,7 @@
         type: 'bar',
         data: {
           labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
-          datasets: [
-            {
-              label: 'Casa',
-              data: totalUse[1][0],
-              borderWidth: 1
-            },
-            {
-              label: 'Auto',
-              data: totalUse[1][1],
-              borderWidth: 1
-            },
-            {
-              label: 'Extra',
-              data: totalUse[1][2],
-              borderWidth: 1
-            },
-            {
-              label: 'Gym',
-              data: totalUse[1][3],
-              borderWidth: 1
-            },
-            {
-              label: 'Entertainment',
-              data: totalUse[1][4],
-              borderWidth: 1
-            },
-            {
-              label: 'Out',
-              data: totalUse[1][5],
-              borderWidth: 1
-            },
-            {
-              label: 'Add',
-              data: totalUse[1][6],
-              borderWidth: 1
-            }
-          ]
+          datasets: totalUse
         }
       };
 

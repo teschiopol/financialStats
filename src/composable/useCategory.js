@@ -33,3 +33,7 @@ function calculateCategory(){
 
     return res;
 }
+
+export function useCatStruct(){
+    return Object.keys(CategoryData);
+}
