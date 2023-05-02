@@ -29,7 +29,7 @@
       const header = ref([
         {"Name":"Name","Sort":true, "Order":""},
         {"Name":"Description","Sort":false},
-        {"Name":"Value", "Sort":true, "Order":""},
+        {"Name":"Total", "Sort":true, "Order":""},
       ]);
 
       const item = ref([]);

@@ -1,44 +1,33 @@
 import {useCategory} from "@/composable/useCategory";
+import RelevanceData from "@/assets/relevance.json";
 
 export function useRelevance(){
 
     let calculate = calculateRelevance();
+    let res = [];
 
-    return [
-        { Name: "Essential",  Description: "You need it to live", Value: calculate[0]},
-        { Name: "Useful",  Description: "It can improve your life", Value: calculate[1]},
-        { Name: "Useless",  Description: "You can live without it", Value: calculate[2]},
-        { Name: "Regret",  Description: "I want my money back", Value: calculate[3]},
-        { Name: "Add",  Description: "Earnings", Value: calculate[4]}
-    ];
+    for (const [key, value] of Object.entries(RelevanceData)){
+        res.push({
+            Name: key,
+            Description: value.Description,
+            Total: calculate[key]
+        })
+    }
+
+    return res;
 }
 
 function calculateRelevance(){
 
     let category = useCategory();
 
-    let res = [
-        0,0,0,0,0
-    ];
+    let res = {};
+    Object.keys(RelevanceData).forEach(el => {
+        res[el] = 0
+    })
 
     category.forEach(el => {
-        switch (el.Relevance) {
-            case 'Essential':
-                res[0] += el.Total;
-                break;
-            case 'Useful':
-                res[1] += el.Total;
-                break;
-            case 'Useless':
-                res[2] += el.Total;
-                break;
-            case 'Regret':
-                res[3] += el.Total;
-                break;
-            case 'Add':
-                res[4] += el.Total;
-                break;
-        }
+        res[el.Relevance] += el.Total;
     });
 
     return res;

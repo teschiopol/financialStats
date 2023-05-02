@@ -1,0 +1,47 @@
+{
+  "Casa" : {
+    "Description": "Home, utilities, rent",
+    "Relevance": "Essential",
+    "Value": 0
+  },
+  "Auto" : {
+    "Description": "Car, fuel",
+    "Relevance": "Essential",
+    "Value": 0
+  },
+  "Grocery" : {
+    "Description": "Basic Eat",
+    "Relevance": "Essential",
+    "Value": 0
+  },
+  "Health" : {
+    "Description": "Healthcare",
+    "Relevance": "Essential",
+    "Value": 0
+  },
+  "Gym" : {
+    "Description": "Gym, integrator",
+    "Relevance": "Useful",
+    "Value": 0
+  },
+  "Entertainment" : {
+    "Description": "Amazon, Spotify, Netflix",
+    "Relevance": "Useful",
+    "Value": 0
+  },
+  "Extra" : {
+    "Description": "Everything extra",
+    "Relevance": "Useless",
+    "Value": 0
+  },
+  "Out" : {
+    "Description": "Dinner Out",
+    "Relevance": "Useless",
+    "Value": 0
+  },
+  "Add" : {
+    "Description": "Rettifica, stipendi, guadagni",
+    "Relevance": "Add",
+    "Value": 0
+  }
+}

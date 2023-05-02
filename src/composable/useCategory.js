@@ -1,52 +1,34 @@
+import CategoryData from "@/assets/category.json";
 import {useListAll} from "@/composable/useList";
 
 export function useCategory(){
 
     let calculate = calculateCategory();
+    let res = [];
 
-    return [
-        { Name: "Casa", Description: "Home, utilities, rent",  Relevance: "Essential", Total: calculate[0]},
-        { Name: "Auto", Description: "Car, fuel",  Relevance: "Essential", Total: calculate[1]},
-        { Name: "Extra", Description: "Everything extra",  Relevance: "Useless", Total: calculate[2]},
-        { Name: "Gym", Description: "Gym, integrator",  Relevance: "Useful", Total: calculate[3]},
-        { Name: "Entertainment", Description: "Amazon, Spotify, Netflix",  Relevance: "Useful", Total: calculate[4]},
-        { Name: "Out", Description: "Dinner Out",  Relevance: "Useless", Total: calculate[5]},
-        { Name: "Add", Description: "Rettifica, stipendi, guadagni",  Relevance: "Add", Total: calculate[6]},
-    ];
+    for (const [key, value] of Object.entries(CategoryData)){
+        res.push({
+            Name: key,
+            Description: value.Description,
+            Relevance: value.Relevance,
+            Total: calculate[key]
+        })
+    }
+
+    return res;
 }
 
 function calculateCategory(){
 
     let listAll = useListAll();
 
-    let res = [
-        0,0,0,0,0,0,0
-    ];
+    let res = {};
+    Object.keys(CategoryData).forEach(el => {
+        res[el] = 0
+    })
 
     listAll.forEach(el => {
-        switch (el.Category) {
-            case 'Casa':
-                res[0] += el.Amount;
-                break;
-            case 'Auto':
-                res[1] += el.Amount;
-                break;
-            case 'Extra':
-                res[2] += el.Amount;
-                break;
-            case 'Gym':
-                res[3] += el.Amount;
-                break;
-            case 'Entertainment':
-                res[4] += el.Amount;
-                break;
-            case 'Out':
-                res[5] += el.Amount;
-                break;
-            case 'Add':
-                res[6] += el.Amount;
-                break;
-        }
+        res[el.Category] += el.Value;
     });
 
     return res;

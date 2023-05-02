@@ -1,0 +1,19 @@
+{
+  "01/01/2023": [{
+    "Description": "Rettifica",
+    "Category": "Add",
+    "Value": 960.53
+  }],
+  "02/02/2023": [
+    {
+      "Description": "Snack",
+      "Category": "Extra",
+      "Value": 20
+    },
+    {
+      "Description": "Membership",
+      "Category": "Gym",
+      "Value": 50
+    }
+  ]
+}

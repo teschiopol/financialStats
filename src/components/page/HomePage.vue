@@ -26,8 +26,7 @@
   import CheckboxStandard from "@/components/standard/CheckboxStandard";
   import router from "@/routers";
   import SidebarStandard from "@/components/standard/SidebarStandard";
-  import {useBalance, useRelevancePer} from "@/composable/useHome";
-  import {useCategoryMonthly, useCatTotal, useTotalMonth, useTotalYear} from "@/composable/useList";
+  import {useBalance, useRelevancePer, useCategoryMonthly, useCatTotal, useTotalMonth, useTotalYear} from "@/composable/useHome";
   export default {
     name: "HomePage",
     title: "Home",
