@@ -8,8 +8,6 @@
 
 - [ ] src/components/page/HomePage.vue:20:  // TODO: sign up with Google 
 
-- [ ] src/components/page/ListPage.vue:10:  // TODO: select row two operation option 
-
 - [ ] src/components/page/SettingPage.vue:8:  // TODO: language change / download json / clear data 
 
 - [ ] src/components/page/LoginPage.vue:58:  // TODO: api auth 
