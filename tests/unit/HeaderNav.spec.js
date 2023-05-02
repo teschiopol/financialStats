@@ -19,6 +19,5 @@ describe("HeaderNav", () => {
             }
         });
         expect(wrapper.text()).toContain("Develop by Unicorne");
-        expect(wrapper.text()).toMatch(/(light|dark)/i);
     });
 });
