@@ -24,7 +24,7 @@
 
 <script>
   import {ref} from "vue";
-  import SidebarLink from "@/components/sub/SidebarLink";
+  import SidebarLink from "@/components/SidebarLink";
   import router from "@/routers";
 
   export default {

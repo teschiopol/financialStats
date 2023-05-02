@@ -5,6 +5,7 @@
 </template>
 
 <script>
+  // TODO: language change / download json / clear data
   import router from "@/routers";
   import HeaderNav from "@/components/HeaderNav";
   import SidebarStandard from "@/components/standard/SidebarStandard";

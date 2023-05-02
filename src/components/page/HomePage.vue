@@ -41,7 +41,6 @@
     },
     setup(){
 
-  // TODO: api get cookie token auth
       let user = localStorage.getItem('user-info');
       if(!user){
         router.push({name:"Login"});

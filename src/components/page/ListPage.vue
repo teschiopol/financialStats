@@ -2,19 +2,23 @@
   <HeaderNav/>
   <SidebarStandard/>
   <h2 style="text-align: center">All Data</h2>
-  <TableStandard :head="header" :filteredList="item" />
+  <PaginationNav/>
+  <TableStandard :head="header" :filteredList="item" custom-class="extend"/>
 </template>
 
 <script>
+  // TODO: select row two operation option
   import HeaderNav from "@/components/HeaderNav";
   import SidebarStandard from "@/components/standard/SidebarStandard";
   import TableStandard from "@/components/standard/TableStandard";
   import {ref} from "vue";
   import {useListAll} from "@/composable/useList";
+  import PaginationNav from "@/components/PaginationNav";
   export default {
     name: "ListPage",
     title: "List",
     components: {
+      PaginationNav,
       SidebarStandard,
       HeaderNav,
       TableStandard

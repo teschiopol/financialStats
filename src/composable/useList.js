@@ -65,43 +65,44 @@ export function useTotalMonth(){
     let option = 0;
     let parz = [...Array(31).keys()];
     let parzSum = 0;
-    let actual = total[0].Date.split('/')[1];
-    let actualDay = total[0].Date.split('/')[0];
-
-    total.forEach(el => {
-        if (el.Date.split('/')[1] !== actual) {
-            if(option > 10){
-                return;
-            }
-            parz[parseInt(actualDay)-1] = parzSum;
-            parz = colmaBuchi(parz, parseInt(actualDay)-1, parzSum);
-            res.push({
-                label: month[parseInt(actual)-1],
-                data: parz,
-                borderWidth: 1,
-                borderColor: useRandomColor(colorIndex),
-                tension: 0.1
-            });
-            option+=1;
-            colorIndex+=1;
-            actual = el.Date.split('/')[1];
-            actualDay = el.Date.split('/')[0];
-            parz = [...Array(31).keys()];
-            parzSum = 0;
-        }
-        if (el.Date.split('/')[0] !== actualDay){
-            parz[parseInt(actualDay)-1] = parzSum;
-            parz = colmaBuchi(parz, parseInt(actualDay)-1, parzSum);
-            actualDay = el.Date.split('/')[0];
-        }
-        if (el.Category === 'Add') {
-            parzSum += el.Amount;
-        } else {
-            parzSum -= el.Amount;
-        }
-    });
 
     if(total.length > 0) {
+        let actual = total[0].Date.split('/')[1];
+        let actualDay = total[0].Date.split('/')[0];
+
+        total.forEach(el => {
+            if (el.Date.split('/')[1] !== actual) {
+                if(option > 10){
+                    return;
+                }
+                parz[parseInt(actualDay)-1] = parzSum;
+                parz = colmaBuchi(parz, parseInt(actualDay)-1, parzSum);
+                res.push({
+                    label: month[parseInt(actual)-1],
+                    data: parz,
+                    borderWidth: 1,
+                    borderColor: useRandomColor(colorIndex),
+                    tension: 0.1
+                });
+                option+=1;
+                colorIndex+=1;
+                actual = el.Date.split('/')[1];
+                actualDay = el.Date.split('/')[0];
+                parz = [...Array(31).keys()];
+                parzSum = 0;
+            }
+            if (el.Date.split('/')[0] !== actualDay){
+                parz[parseInt(actualDay)-1] = parzSum;
+                parz = colmaBuchi(parz, parseInt(actualDay)-1, parzSum);
+                actualDay = el.Date.split('/')[0];
+            }
+            if (el.Category === 'Add') {
+                parzSum += el.Amount;
+            } else {
+                parzSum -= el.Amount;
+            }
+        });
+
         parz[parseInt(actualDay)-1] = parzSum;
         parz = colmaBuchi(parz, parseInt(actualDay)-1, parzSum);
         res.push({
@@ -188,7 +189,8 @@ export function useCategoryMonthly(){
 }
 
 export function useListAll(){
-
+    return [];
+    /*
     return [
         { Date: "01/01/2023", Description: "Rettifica",  Category: "Add", Amount: 960.53},
 
@@ -203,5 +205,5 @@ export function useListAll(){
         { Date: "01/03/2023", Description: "Dioc",  Category: "Extra", Amount: 410},
         { Date: "01/03/2023", Description: "Colazione",  Category: "Out", Amount: 7.40},
         { Date: "04/03/2023", Description: "Pranzo Domenica",  Category: "Out", Amount: 56.0}
-    ];
+    ];*/
 }

@@ -1,13 +1,13 @@
 <template>
-  <table id="tableComponent">
-    <thead style="display: block">
+  <table id="tableComponent" :class="customClass">
+    <thead>
       <tr>
         <th v-for="field in head" :key='field["Name"]' @click="sortTable(field)" >
           {{field["Name"]}}  <span v-if="field['Sort']">{{field["Order"]}}</span>
         </th>
       </tr>
     </thead>
-    <tbody style="overflow: auto; max-height: 70vh; display: block;">
+    <tbody>
       <tr v-for="item in filteredList" :key='item'>
         <td v-for="field in head" :key='field["Name"]' :class="alignType(item[field['Name']])">{{cast(item[field["Name"]])}}</td>
       </tr>
@@ -16,7 +16,7 @@
 </template>
 
 <script >
-
+  // TODO: fix order date
   export default {
     name: "TableStandard",
     props:{
@@ -25,6 +25,9 @@
       },
       head:{
         type: Array,
+      },
+      customClass: {
+        type: String
       }
     },
     setup(props){
@@ -112,5 +115,15 @@
 
   .align{
     text-align: right;
+  }
+
+  .extend tbody{
+    overflow-y: scroll;
+    max-height: 60vh;
+  }
+
+  .extend thead,
+  .extend tbody{
+    display: block;
   }
 </style>

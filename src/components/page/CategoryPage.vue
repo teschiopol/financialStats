@@ -26,9 +26,7 @@
       }
     },
     setup(){
-  // TODO: retrieve by api. Name colum as head, data es item
   // TODO: filter
-  // TODO: dynamic show total by month
       const header = ref([
         {"Name":"Name","Sort":true, "Order":""},
         {"Name":"Description","Sort":false},

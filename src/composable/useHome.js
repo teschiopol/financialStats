@@ -21,16 +21,21 @@ export function useRelevancePer(){
 
     let relevance = useRelevance();
     let tot = 0;
+    let res = [];
+
     relevance.forEach(el => {
         tot += el.Value;
     });
 
-    let res = [];
-    res[0] = (100*relevance[0].Value) / tot;
-    res[1] = (100*relevance[1].Value) / tot;
-    res[2] = (100*relevance[2].Value) / tot;
-    res[3] = (100*relevance[3].Value) / tot;
-    res[4] = (100*relevance[4].Value) / tot;
+    if(tot === 0){
+        res = [0,0,0,0,0];
+    }else {
+        res[0] = (100 * relevance[0].Value) / tot;
+        res[1] = (100 * relevance[1].Value) / tot;
+        res[2] = (100 * relevance[2].Value) / tot;
+        res[3] = (100 * relevance[3].Value) / tot;
+        res[4] = (100 * relevance[4].Value) / tot;
+    }
 
     return [
         {id:"Add", value:res[4].toFixed(2)},
