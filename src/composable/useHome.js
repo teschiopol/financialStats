@@ -112,7 +112,7 @@ export function useTotalMonth(){
     let res = [];
     let colorIndex = 0;
     let option = 0;
-    let parz = [...Array(31).keys()];
+    let parz = [...Array(31).fill(0)];
     let parzSum = 0;
 
     if(total.length > 0) {
@@ -137,7 +137,7 @@ export function useTotalMonth(){
                 colorIndex+=1;
                 actual = el.Date.split('/')[1];
                 actualDay = el.Date.split('/')[0];
-                parz = [...Array(31).keys()];
+                parz = [...Array(31).fill(0)];
                 parzSum = 0;
             }
             if (el.Date.split('/')[0] !== actualDay){
