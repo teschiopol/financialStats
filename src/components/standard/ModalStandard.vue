@@ -4,8 +4,14 @@
       <transition name="modal-animation-inner">
         <div v-show="isOpen" class="modal-inner">
           <slot/>
+          <div v-if="operation!=='D'">
           <ButtonStandard v-if="!hideButton" label="Close" type-class="typeTwo" @click="close" />
           <ButtonStandard label="Save 🚀" @click="save" v-if="action && !hideButton"/>
+          </div>
+          <div v-else>
+            <ButtonStandard v-if="!hideButton" label="Delete" type-class="typeTwo" @click="del" />
+            <ButtonStandard label="Close" @click="close" v-if="action && !hideButton"/>
+          </div>
           <div v-if="hideButton" style="text-align: center">Loading...</div>
         </div>
       </transition>
@@ -22,6 +28,7 @@ export default {
   },
   props: {
     isOpen: Boolean,
+    operation: String,
     hideButton: {
       type: Boolean,
       default: false
@@ -32,6 +39,7 @@ export default {
     }
   },
   setup(props, {emit}){
+
     const close = () => {
       emit("close");
     }
@@ -40,7 +48,11 @@ export default {
       emit("save");
     }
 
-    return {close, save};
+    const del = () => {
+      emit("del");
+    }
+
+    return {close, save, del};
   }
 }
 </script>

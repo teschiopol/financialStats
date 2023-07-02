@@ -8,7 +8,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr v-for="item in filteredList" :key='item'>
+      <tr v-for="item in filteredList" :key='item' :id="item['Index']" @click="selectRow(item['Index'])">
         <td v-for="field in head" :key='field["Name"]' :class="alignType(item[field['Name']])">{{cast(item[field["Name"]])}}</td>
       </tr>
     </tbody>
@@ -16,7 +16,7 @@
 </template>
 
 <script >
-  // TODO: fix order date
+  import {setModOp, setDataRow} from "@/composable/useForm";
   export default {
     name: "TableStandard",
     props:{
@@ -72,16 +72,57 @@
           return 'align';
         }
         return '';
-      }
+      };
 
       const cast = (value) => {
         if(typeof value === 'number'){
           return (Math.round(value * 100) / 100).toFixed(2);
         }
+        const regex = /^\d{4}-\d{2}-\d{2}$/g;
+        if(value.match(regex) !== null){ // it's a date
+          let split = value.split('-');
+          return split[2] + '/' + split[1] +  '/' + split[0];
+        }
         return value;
       };
 
-      return {alignType, sortTable, cast};
+      const selectRow = (idx) => {
+        let tBody = document.getElementsByTagName('tbody')[0];
+        let tableRow = tBody.getElementsByTagName('tr');
+
+        let actualSelect = document.getElementById(idx);
+
+        if(actualSelect !== null) {
+          if (actualSelect.className.includes('select')) {
+            actualSelect.className = actualSelect.className.replaceAll('select', '');
+            setModOp(false);
+            return;
+          }
+
+          for (let t = 0; t < tableRow.length; t++) {
+            tableRow[t].className = tableRow[t].className.replaceAll('select', '');
+          }
+
+          if (actualSelect.className === '') {
+            actualSelect.className = "select";
+          } else {
+            actualSelect.className += "select";
+          }
+
+          let dataRow = [];
+          actualSelect.childNodes.forEach(el => {
+            if(typeof el.innerText !== 'undefined'){
+              dataRow.push(el.innerText);
+            }
+          });
+          dataRow.push(idx);
+
+          setModOp(true);
+          setDataRow(dataRow);
+        }
+      };
+
+      return {alignType, sortTable, cast, selectRow};
     }
   }
 </script>
@@ -125,5 +166,10 @@
   .extend thead,
   .extend tbody{
     display: block;
+  }
+
+  .select{
+    background-color: var(--suscyan) !important;
+    color: var(--aliceblue);
   }
 </style>

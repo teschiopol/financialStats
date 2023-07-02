@@ -21,7 +21,6 @@ pnpm-debug.log*
 *.njsproj
 *.sln
 *.sw?
-/src/assets/list.json
 
 #Electron-builder output
 /dist_electron

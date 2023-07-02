@@ -1,19 +1,11 @@
-import Data from "@/assets/list.json";
-
 export function useListAll(){
 
-    let res = [];
+    let list = localStorage.getItem('list');
+    list = JSON.parse(list);
 
-    for (const [key, value] of Object.entries(Data)){
-        value.forEach(el => {
-            res.push({
-                Date: key,
-                Description: el.Description,
-                Category: el.Category,
-                Value: el.Value
-            })
-        })
+    if(list === null){
+        return [];
     }
 
-    return res;
+    return list;
 }
