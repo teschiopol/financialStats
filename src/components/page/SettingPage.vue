@@ -3,35 +3,36 @@
   <SidebarStandard/>
   <h2 style="text-align: center">Setting</h2>
   <div class="container">
-    <div class="row">
-      <p>Delete all your data forever!</p>
-      <p>Download your data in JSON file.</p>
+    <div class="row">Delete all your data forever!</div>
+    <div style="margin: auto">
+      <ButtonStandard label="Clear Data" @click="clear()"/>
     </div>
-    <div class="row">
-
-      <button @click="clear()" style="margin-bottom: 16px" >Clear Data</button>
-      <br>
-      <button @click="save()" >Download Data</button>
+    <hr style="border-top: 0 solid #bbb;">
+    <hr style="border-top: 0 solid #bbb;">
+    <div class="row">Download your data in JSON file.</div>
+    <div style="margin: auto">
+      <ButtonStandard label="Download Data" @click="save()"/>
     </div>
   </div>
+
 
 </template>
 
 <script>
   // TODO: language change
-  // TODO: save
   // TODO: confirm on click
   import router from "@/routers";
   import HeaderNav from "@/components/HeaderNav";
   import SidebarStandard from "@/components/standard/SidebarStandard";
+  import ButtonStandard from "@/components/standard/ButtonStandard";
   export default {
     name: "SettingPage",
-    components: {SidebarStandard, HeaderNav},
+    components: {ButtonStandard, SidebarStandard, HeaderNav},
     title: "Settings",
     setup() {
       let user = localStorage.getItem('user-info');
       if (!user) {
-        router.push({name:"Login"});
+        router.push({name: "Login"});
       }
 
       const clear = () => {
@@ -40,7 +41,13 @@
       }
 
       const save = () => {
-        // https://stackoverflow.com/questions/19721439/download-json-object-as-a-file-from-browser
+        let dataStr = "data:text/json;charset=utf-8," + encodeURIComponent((localStorage.getItem('list')));
+        let downloadAnchorNode = document.createElement('a');
+        downloadAnchorNode.setAttribute("href", dataStr);
+        downloadAnchorNode.setAttribute("download", "financialStat.json");
+        document.body.appendChild(downloadAnchorNode);
+        downloadAnchorNode.click();
+        downloadAnchorNode.remove();
       }
       return {clear, save};
     }
@@ -49,14 +56,14 @@
 
 <style scoped>
   .container {
-    margin-top: 2em;
-    position: relative;
+    display: grid;
+    grid-template-columns: 66% 33%;
+    margin: auto 10%;
   }
 
-  .row{
-    width: 50%;
-    left: 20%;
-    position: relative;
-    display: inline-block;
+  .row {
+    padding: 10px;
+    margin: auto 0;
+    border-bottom: 1px solid;
   }
 </style>
