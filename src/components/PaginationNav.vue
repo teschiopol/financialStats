@@ -139,13 +139,25 @@
           maxIdx += 1;
         }
 
-        list.push({
-              "Date": data['date'],
-              "Description": data['description'],
-              "Category": data['category'],
-              "Value": data['amount'],
-              "Index": maxIdx
-        });
+        if (operation.value === 'C') {
+          list.push({
+            "Date": data['date'],
+            "Description": data['description'],
+            "Category": data['category'],
+            "Value": data['amount'],
+            "Index": maxIdx
+          });
+        }else{
+          let dataToSet = getDataRow();
+          let key = list.findIndex((element) => element['Index'] === dataToSet[4]);
+          list[key] = {
+            "Date": data['date'],
+            "Description": data['description'],
+            "Category": data['category'],
+            "Value": data['amount'],
+            "Index": dataToSet[4]
+          };
+        }
         localStorage.setItem('list', JSON.stringify(list));
         return true;
       };
@@ -174,7 +186,7 @@
           selectOp.value = getModOp();
         }
       });
-// TODO: fix edit
+
       return {
         isOpen, date, amount, description, category, hideButton, categoryOp, operation, selectOp,
         del, toggleModal, save
