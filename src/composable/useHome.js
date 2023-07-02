@@ -74,16 +74,16 @@ export function useTotalYear(){
     if(total.length > 0) {
         res[0] = [];
         res[1] = [];
-        actual = total[0].Date.split('/')[1];
+        actual = total[0].Date.split('-')[1];
 
         total.forEach(el => {
-            if (el.Date.split('/')[1] !== actual) {
+            if (el.Date.split('-')[1] !== actual) {
                 if(option > 10){
                     return;
                 }
                 res[1].push(month[parseInt(actual)-1]);
                 res[0].push(sum);
-                actual = el.Date.split('/')[1];
+                actual = el.Date.split('-')[1];
                 option+=1;
             }
             if (el.Category === 'Add') {
@@ -116,11 +116,11 @@ export function useTotalMonth(){
     let parzSum = 0;
 
     if(total.length > 0) {
-        let actual = total[0].Date.split('/')[1];
-        let actualDay = total[0].Date.split('/')[0];
+        let actual = total[0].Date.split('-')[1];
+        let actualDay = total[0].Date.split('-')[2];
 
         total.forEach(el => {
-            if (el.Date.split('/')[1] !== actual) {
+            if (el.Date.split('-')[1] !== actual) {
                 if(option > 10){
                     return;
                 }
@@ -135,15 +135,15 @@ export function useTotalMonth(){
                 });
                 option+=1;
                 colorIndex+=1;
-                actual = el.Date.split('/')[1];
-                actualDay = el.Date.split('/')[0];
+                actual = el.Date.split('-')[1];
+                actualDay = el.Date.split('-')[2];
                 parz = [...Array(31).fill(0)];
                 parzSum = 0;
             }
-            if (el.Date.split('/')[0] !== actualDay){
+            if (el.Date.split('-')[2] !== actualDay){
                 parz[parseInt(actualDay)-1] = parzSum;
                 parz = colmaBuchi(parz, parseInt(actualDay)-1, parzSum);
-                actualDay = el.Date.split('/')[0];
+                actualDay = el.Date.split('-')[2];
             }
             if (el.Category === 'Add') {
                 parzSum += el.Value;
@@ -191,23 +191,22 @@ export function useCategoryMonthly(){
     let resP = {};
     cat.forEach(el => {
         sum[el] = 0;
-        resP[el] = [];
+        resP[el] = [0,0,0,0,0,0,0,0,0,0,0,0];
     });
     let res = [];
 
     for (let i = 0; i < list.length; i++) {
-        if(actual !== list[i].Date.split('/')[1]){
-            //res[0].push(actual);
+        if(actual !== list[i].Date.split('-')[1]){
             cat.forEach(el => {
-                resP[el].push(sum[el]);
+                resP[el][parseInt(actual)-1] += sum[el];
                 sum[el] = 0;
             });
-            actual = list[i].Date.split('/')[1];
+            actual = list[i].Date.split('-')[1];
         }
         sum[list[i].Category] += list[i].Value;
     }
     cat.forEach(el => {
-        resP[el].push(sum[el]);
+        resP[el][parseInt(actual)-1] += sum[el];
     });
 
     for (const [key, value] of Object.entries(resP)){

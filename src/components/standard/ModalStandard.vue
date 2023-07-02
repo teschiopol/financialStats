@@ -9,8 +9,8 @@
           <ButtonStandard label="Save 🚀" @click="save" v-if="action && !hideButton"/>
           </div>
           <div v-else>
-            <ButtonStandard v-if="!hideButton" label="Delete" type-class="typeTwo" @click="del" />
-            <ButtonStandard label="Close" @click="close" v-if="action && !hideButton"/>
+            <ButtonStandard v-if="!hideButton" label="Delete 🗑" type-class="typeTwo" @click="del" style="float: left"/>
+            <ButtonStandard label="Close" @click="close" v-if="action && !hideButton" style="float: right"/>
           </div>
           <div v-if="hideButton" style="text-align: center">Loading...</div>
         </div>

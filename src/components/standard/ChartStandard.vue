@@ -10,7 +10,7 @@
   import { onMounted } from 'vue'
   export default {
     name: "ChartStandard",
-    props: ["configuration", "customStyle"],
+    props: ["configuration"],
     setup(props) {
 
       onMounted(() => {
