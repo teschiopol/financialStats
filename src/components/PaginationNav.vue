@@ -4,10 +4,16 @@
       <ButtonStandard label="Create 🗒" @click="toggleModal('C')"/>
     </div>
     <div class="pagination-btn" v-show="selectOp">
-      <ButtonStandard label="Edit ✍🏻" @click="toggleModal('E')" />
+      <ButtonStandard label="Edit ✍🏻" @click="toggleModal('E')"/>
+    </div>
+    <div class="pagination-btn" v-show="!selectOp" style="opacity: 0.3;">
+      <ButtonStandard label="Edit ✍🏻"/>
     </div>
     <div class="pagination-btn" v-show="selectOp">
       <ButtonStandard label="Delete 🗑" @click="toggleModal('D')" type-class="typeTwo" style="float: none"/>
+    </div>
+    <div class="pagination-btn" v-show="!selectOp" style="opacity: 0.3;">
+      <ButtonStandard label="Delete 🗑" type-class="typeTwo" style="float: none"/>
     </div>
   </div>
   <ModalComponent @close="toggleModal" :isOpen="isOpen" @save="save" :operation="operation" @del="del">
