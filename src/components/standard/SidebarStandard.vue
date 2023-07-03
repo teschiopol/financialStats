@@ -52,8 +52,8 @@
       };
 
       const logout = () => {
-        localStorage.clear();
-        router.push({name:"Login"});
+        localStorage.setItem('user-info', '');
+        router.push({name: "Login"});
       };
 
       return{collapsed, sidebarWidth, toggleSidebar, close, logout};

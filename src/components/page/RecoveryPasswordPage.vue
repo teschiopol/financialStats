@@ -41,7 +41,6 @@
       const recovery = ref('');
 
       const reset = () => {
-  // TODO: reset
         console.log('reset');
       }
 

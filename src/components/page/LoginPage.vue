@@ -15,10 +15,11 @@
         <div class="cut"></div>
         <label for="password" class="placeholder">Password</label>
       </div>
-      <ButtonStandard label="SignUp 👤" @click="signUp" type-class="typeThree"/>
+      <ButtonStandard label="SignUp 👤" @click="signUp" type-class="typeThree" style="visibility: hidden"/>
       <ButtonStandard label="Login 🔒" @click="login" style="float: right;"/>
       <div class="recovery">
-        <router-link to="/recovery-password">Recovery Password</router-link>
+        <router-link to="/recovery-password" style="display: none">Recovery Password</router-link>
+        <a href="#" @click="autoC">Hint: admin - admin</a>
       </div>
       <div class="error" v-if="error">
         Login Error!
@@ -55,14 +56,14 @@
         passwordFieldType.value = passwordFieldType.value === "password" ? "text" : "password";
       };
 
-  // TODO: api auth
+
       const login = () => {
-        if(user.value === 'admin' && password.value === 'Gino23'){
+        if (user.value === 'admin' && password.value === 'admin') {
           localStorage.setItem('user-info', 'admin');
           router.push({
             name: 'Home'
           });
-        }else{
+        } else {
           error.value = true;
         }
       };
@@ -179,7 +180,13 @@
         "retina_detect": true
       };
 
-      return {user, password, error, passwordFieldType, particleConfig, login, switchVisibility, signUp}
+      const autoC = () => {
+        user.value = 'admin';
+        password.value = 'admin';
+        login();
+      }
+
+      return {user, password, error, passwordFieldType, particleConfig, login, switchVisibility, signUp, autoC}
     }
   }
 </script>

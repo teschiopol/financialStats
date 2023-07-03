@@ -16,8 +16,6 @@
 </template>
 
 <script>
-  // TODO: password check strength
-  // TODO: sign up with Google
   import HeaderNav from "@/components/HeaderNav";
   import CardStandard from "@/components/standard/CardStandard";
   import {ref} from "vue";

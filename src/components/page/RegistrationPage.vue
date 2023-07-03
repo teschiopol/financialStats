@@ -39,7 +39,7 @@
       const email = ref('');
       const password = ref('');
       const user = ref('');
-  // TODO: signup
+
       const signup = () => {
         console.log('signup');
       }
