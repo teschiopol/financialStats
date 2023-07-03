@@ -8,9 +8,7 @@
 
 - [ ] src/components/page/LoginPage.vue:58:  // TODO: api auth 
 
-- [ ] src/components/page/SettingPage.vue:22:  // TODO: language change 
-
-- [ ] src/components/page/SettingPage.vue:23:  // TODO: confirm on click 
+- [ ] src/components/page/SettingPage.vue:78:      // TODO: language change 
 
 - [ ] src/components/page/CategoryPage.vue:29:  // TODO: filter 
 
