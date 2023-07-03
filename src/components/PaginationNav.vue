@@ -40,7 +40,8 @@
         <div class="input-container ic1">
           <select class="input" v-model="category" required>
             <option value="">Seleziona</option>
-            <option v-for="item in categoryOp" :key="item" :value="item">{{item}}</option>
+            <option v-for="item in categoryOp" :key="item" :value="item[0]">{{ item[0] }} - {{ item[1].Description }}
+            </option>
           </select>
           <div class="cut"></div>
           <label for="category" class="placeholder">Category</label>
@@ -120,7 +121,6 @@
       let description = ref('');
       let category = ref('');
       let categoryOp = ref([]);
-      let list = localStorage.getItem('list');
 
       const saveFile = async (data) => {
         if(data['date'] === ''){
@@ -136,6 +136,7 @@
           return false;
         }
 
+        let list = localStorage.getItem('list');
         let maxIdx = 1;
         list = JSON.parse(list);
         if(list === null){
@@ -150,7 +151,7 @@
             "Date": data['date'],
             "Description": data['description'],
             "Category": data['category'],
-            "Value": data['amount'],
+            "Value": parseFloat(data['amount']),
             "Index": maxIdx
           });
         }else{
@@ -160,7 +161,7 @@
             "Date": data['date'],
             "Description": data['description'],
             "Category": data['category'],
-            "Value": data['amount'],
+            "Value": parseFloat(data['amount']),
             "Index": dataToSet[4]
           };
         }
@@ -182,7 +183,7 @@
       };
 
       let today = new Date();
-      categoryOp.value = useCatStruct();
+      categoryOp.value = useCatStruct(true);
 
       const selectOp = ref(false);
       selectOp.value = getModOp();

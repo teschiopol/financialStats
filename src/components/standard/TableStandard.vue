@@ -83,7 +83,7 @@
           let split = value.split('-');
           return split[2] + '/' + split[1] +  '/' + split[0];
         }
-        return value;
+        return value.charAt(0).toUpperCase() + value.slice(1);
       };
 
       const selectRow = (idx) => {

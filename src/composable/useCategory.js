@@ -34,6 +34,9 @@ function calculateCategory(){
     return res;
 }
 
-export function useCatStruct(){
+export function useCatStruct(full = false) {
+    if (full) {
+        return Object.entries(CategoryData);
+    }
     return Object.keys(CategoryData);
 }
