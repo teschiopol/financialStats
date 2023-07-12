@@ -33,17 +33,17 @@
     },
     setup(){
       const header = ref([
-        {"Name":"Date","Sort":true, "Order":""},
-        {"Name":"Description","Sort":true, "Order":""},
-        {"Name":"Category", "Sort":true, "Order":""},
-        {"Name":"Value","Sort":true, "Order":""}
+        {"Name": "Date", "Sort": true, "Order": ""},
+        {"Name": "Description", "Sort": true, "Order": ""},
+        {"Name": "Category", "Sort": true, "Order": ""},
+        {"Name": "Value", "Sort": true, "Order": ""}
       ]);
 
       const item = ref([]);
       item.value = useListAll();
 
-      const updateList = () => {
-        item.value = useListAll();
+      const updateList = (filter = ['', '', '', '', '', '']) => {
+        item.value = useListAll(filter);
       };
 
       return {header, item, updateList};

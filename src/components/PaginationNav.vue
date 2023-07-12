@@ -1,42 +1,37 @@
 <template>
-  <div class="pagination">
-    <div class="pagination-btn">
-      <ButtonStandard label="Create 🗒" @click="toggleModal('C')"/>
+  <div class="pagination" id="pagination">
+    <div id="operation" style="display: flex; width: 60%">
+      <div class="pagination-btn">
+        <ButtonStandard label="Create 🗒" @click="toggleModal('C')"/>
+      </div>
+      <div class="pagination-btn" v-show="selectOp">
+        <ButtonStandard label="Edit ✍🏻" @click="toggleModal('E')"/>
+      </div>
+      <div class="pagination-btn" v-show="!selectOp" style="opacity: 0.3;">
+        <ButtonStandard label="Edit ✍🏻"/>
+      </div>
+      <div class="pagination-btn" v-show="selectOp">
+        <ButtonStandard label="Delete 🗑" @click="toggleModal('D')" type-class="typeTwo" style="float: none"/>
+      </div>
+      <div class="pagination-btn" v-show="!selectOp" style="opacity: 0.3;">
+        <ButtonStandard label="Delete 🗑" type-class="typeTwo" style="float: none"/>
+      </div>
     </div>
-    <div class="pagination-btn" v-show="selectOp">
-      <ButtonStandard label="Edit ✍🏻" @click="toggleModal('E')"/>
-    </div>
-    <div class="pagination-btn" v-show="!selectOp" style="opacity: 0.3;">
-      <ButtonStandard label="Edit ✍🏻"/>
-    </div>
-    <div class="pagination-btn" v-show="selectOp">
-      <ButtonStandard label="Delete 🗑" @click="toggleModal('D')" type-class="typeTwo" style="float: none"/>
-    </div>
-    <div class="pagination-btn" v-show="!selectOp" style="opacity: 0.3;">
-      <ButtonStandard label="Delete 🗑" type-class="typeTwo" style="float: none"/>
+    <div id="filter" style="display: flex; width: 40%">
+      <div class="filter-btn">
+        <ButtonStandard label="Filter 🔍" @click="toggleModal('F')"/>
+      </div>
     </div>
   </div>
-  <ModalComponent @close="toggleModal" :isOpen="isOpen" @save="save" :operation="operation" @del="del">
+  <ModalComponent @close="toggleModal" :isOpen="isOpen" @save="save" :operation="operation" @del="del"
+                  @applyFilter="applyFilter">
     <div class="modal-content">
       <h2 v-if="operation === 'C'">Create</h2>
-      <h2 v-if="operation === 'E'">Edit</h2>
+      <h2 v-else-if="operation === 'E'">Edit</h2>
+      <h2 v-else-if="operation === 'F'">Filter</h2>
       <h2 v-else>Delete</h2>
       <form v-if="operation !== 'D'">
-        <div class="input-container ic1" style="display: inline-block; width: 50%;">
-          <input id="date" name="date" class="input" type="date" placeholder="" autocomplete="off" v-model="date" required />
-          <div class="cut"></div>
-          <label for="date" class="placeholder">Date</label>
-        </div>
-        <div class="input-container ic1"  style="display: inline-block; width: 50%;">
-          <input id="amount" name="amount" class="input" type="number" min="0" placeholder="" autocomplete="off" v-model="amount" required />
-          <div class="cut"></div>
-          <label for="amount" class="placeholder">Amount</label>
-        </div>
-        <div class="input-container ic1">
-          <input id="description" name="description" class="input" type="text" placeholder="" autocomplete="off" v-model="description" required/>
-          <div class="cut"></div>
-          <label for="description" class="placeholder">Description</label>
-        </div>
+        <OperationFields :fields="fields"/>
         <div class="input-container ic1">
           <select class="input" v-model="category" required>
             <option value="">Seleziona</option>
@@ -60,41 +55,119 @@
   import {ref, watch} from 'vue';
   import {useCatStruct} from "@/composable/useCategory";
   import {modOp, getModOp, getDataRow} from "@/composable/useForm";
+  import OperationFields from "@/components/OperationFields";
   export default {
     name: "PaginationNav",
-    components: {ModalComponent, ButtonStandard},
+    components: {OperationFields, ModalComponent, ButtonStandard},
     props: {
       modOp: Boolean
     },
     emits: ["updateElement"],
-    setup(props, {emit}){
+    setup(props, {emit}) {
       const isOpen = ref(false);
       const operation = ref('C');
       const hideButton = ref(false);
+      const fields = ref([]);
 
-      const manageFields = (set = false) => {
-        if(set){
+      const fromDate = ref('');
+      const toDate = ref('');
+      const fromAmount = ref('');
+      const toAmount = ref('');
+      const descriptionSearch = ref('');
+      const categorySearch = ref('');
+
+      const manageFields = (set = '') => {
+        if (set === 'F') {
+          fields.value = [
+            {
+              "classStyle": "display: inline-block; width: 50%;",
+              "reference": "fromDate",
+              "type": "date",
+              "modelValue": fromDate,
+              "required": "",
+              "label": "From Date"
+            },
+            {
+              "classStyle": "display: inline-block; width: 50%;",
+              "reference": "toDate",
+              "type": "date",
+              "modelValue": toDate,
+              "required": "",
+              "label": "To Date"
+            },
+            {
+              "classStyle": "display: inline-block; width: 50%;",
+              "reference": "fromValue",
+              "type": "number",
+              "modelValue": fromAmount,
+              "required": "",
+              "label": "From Amount"
+            },
+            {
+              "classStyle": "display: inline-block; width: 50%;",
+              "reference": "toValue",
+              "type": "number",
+              "modelValue": toAmount,
+              "required": "",
+              "label": "To Amount"
+            },
+            {
+              "classStyle": "",
+              "reference": "descriptionSearch",
+              "type": "text",
+              "modelValue": descriptionSearch,
+              "required": "",
+              "label": "Description"
+            },
+          ];
+          category.value = categorySearch.value;
+          return;
+        }
+
+        if (set === 'E') {
           let dataToSet = getDataRow();
           let dataToSetParse = dataToSet[0].split('/');
-          let actual =  new Date(dataToSetParse[2], dataToSetParse[1] - 1, dataToSetParse[0]);
-          date.value = actual.getFullYear() + '-' + (actual.getMonth() + 1).toString().padStart(2, '0') + '-' + actual.getDate().toString().padStart(2, '0') ;
+          let actual = new Date(dataToSetParse[2], dataToSetParse[1] - 1, dataToSetParse[0]);
+          date.value = actual.getFullYear() + '-' + (actual.getMonth() + 1).toString().padStart(2, '0') + '-' + actual.getDate().toString().padStart(2, '0');
           amount.value = dataToSet[3];
           description.value = dataToSet[1];
           category.value = dataToSet[2];
-          return;
+        } else {
+          date.value = today.getFullYear() + '-' + (today.getMonth() + 1).toString().padStart(2, '0') + '-' + today.getDate().toString().padStart(2, '0');
+          amount.value = '';
+          description.value = '';
+          category.value = '';
         }
-        date.value = today.getFullYear() + '-' + (today.getMonth() + 1).toString().padStart(2, '0') + '-' + today.getDate().toString().padStart(2, '0') ;
-        amount.value = '';
-        description.value = '';
-        category.value = '';
+        fields.value = [
+          {
+            "classStyle": "display: inline-block; width: 50%;",
+            "reference": "date",
+            "type": "date",
+            "modelValue": date,
+            "required": "required",
+            "label": "Date"
+          },
+          {
+            "classStyle": "display: inline-block; width: 50%;",
+            "reference": "amount",
+            "type": "number",
+            "modelValue": amount,
+            "required": "required",
+            "label": "Amount"
+          },
+          {
+            "classStyle": "",
+            "reference": "description",
+            "type": "text",
+            "modelValue": description,
+            "required": "required",
+            "label": "Description"
+          },
+        ];
       };
 
-      const toggleModal = (op) => {
-        let set = false;
-        if (op === 'E'){
-          set = true;
-        }
-        manageFields(set);
+      const toggleModal = (op = '') => {
+        manageFields(op);
         operation.value = op;
         hideButton.value = false;
         isOpen.value = !isOpen.value;
@@ -189,26 +262,42 @@
       selectOp.value = getModOp();
 
       watch(modOp, async (newV, oldV) => {
-        if(newV !== oldV){
+        if (newV !== oldV) {
           selectOp.value = getModOp();
         }
       });
 
+      const applyFilter = () => {
+        categorySearch.value = category.value;
+        toggleModal();
+        let filters = [
+          fromDate.value.trim(),
+          toDate.value.trim(),
+          fromAmount.value.trim(),
+          toAmount.value.trim(),
+          descriptionSearch.value.trim(),
+          categorySearch.value.trim()
+        ];
+        emit("updateElement", filters);
+      }
+
       return {
-        isOpen, date, amount, description, category, hideButton, categoryOp, operation, selectOp,
-        del, toggleModal, save
+        isOpen, date, amount, description, category, hideButton, categoryOp, operation, selectOp, fields,
+        del, toggleModal, save, applyFilter
       };
     }
   }
 </script>
 
 <style scoped>
-  .pagination{
+  .pagination {
     color: var(--darkcyan);
     height: 6em;
     display: flex;
-    margin-top: 1em;
+    margin: 1em auto 0;
+    max-width: 960px;
   }
+
   /* Chrome, Safari, Edge, Opera */
   input::-webkit-outer-spin-button,
   input::-webkit-inner-spin-button {
@@ -219,5 +308,10 @@
   /* Firefox */
   input[type=number] {
     -moz-appearance: textfield;
+  }
+
+  .filter-btn {
+    text-align: right;
+    margin: auto 0 0 auto;
   }
 </style>

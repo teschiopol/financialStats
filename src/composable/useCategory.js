@@ -1,12 +1,14 @@
 import CategoryData from "@/assets/category.json";
 import {useListAll} from "@/composable/useList";
 
-export function useCategory(){
+// TODO: make category dynamic
+
+export function useCategory() {
 
     let calculate = calculateCategory();
     let res = [];
 
-    for (const [key, value] of Object.entries(CategoryData)){
+    for (const [key, value] of Object.entries(CategoryData)) {
         res.push({
             Name: key,
             Description: value.Description,

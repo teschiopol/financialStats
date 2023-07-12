@@ -4,9 +4,13 @@
       <transition name="modal-animation-inner">
         <div v-show="isOpen" class="modal-inner">
           <slot/>
-          <div v-if="operation!=='D'">
-          <ButtonStandard v-if="!hideButton" label="Close" type-class="typeTwo" @click="close" />
-          <ButtonStandard label="Save 🚀" @click="save" v-if="action && !hideButton"/>
+          <div v-if="operation === 'F'">
+            <ButtonStandard v-if="!hideButton" label="Close" type-class="typeTwo" @click="close"/>
+            <ButtonStandard label="Apply 🔎" @click="applyFilter" v-if="action && !hideButton"/>
+          </div>
+          <div v-else-if="operation !== 'D'">
+            <ButtonStandard v-if="!hideButton" label="Close" type-class="typeTwo" @click="close"/>
+            <ButtonStandard label="Save 🚀" @click="save" v-if="action && !hideButton"/>
           </div>
           <div v-else>
             <ButtonStandard v-if="!hideButton" label="Delete 🗑" type-class="typeTwo" @click="del" style="float: left"/>
@@ -52,7 +56,11 @@ export default {
       emit("del");
     }
 
-    return {close, save, del};
+    const applyFilter = () => {
+      emit("applyFilter");
+    }
+
+    return {close, save, del, applyFilter};
   }
 }
 </script>
