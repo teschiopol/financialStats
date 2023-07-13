@@ -32,14 +32,23 @@
       <h2 v-else>Delete</h2>
       <form v-if="operation !== 'D'">
         <OperationFields :fields="fields"/>
-        <div class="input-container ic1">
+        <div v-if="from==='L'" class="input-container ic1">
           <select class="input" v-model="category" required>
             <option value="">Seleziona</option>
-            <option v-for="item in categoryOp" :key="item" :value="item[0]">{{ item[0] }} - {{ item[1].Description }}
+            <option v-for="item in categoryOp" :key="item" :value="item[0]">{{ item[0] }} - {{ item[1] }}
             </option>
           </select>
           <div class="cut"></div>
           <label for="category" class="placeholder">Category</label>
+        </div>
+        <div v-if="from==='C'" class="input-container ic1">
+          <select class="input" v-model="relevance" required>
+            <option value="">Seleziona</option>
+            <option v-for="item in relevanceOp" :key="item" :value="item[0]">{{ item[0] }} - {{ item[1] }}
+            </option>
+          </select>
+          <div class="cut"></div>
+          <label for="relevance" class="placeholder">Relevance</label>
         </div>
       </form>
       <div v-else>
@@ -50,17 +59,20 @@
 </template>
 
 <script>
+// TODO: fix selectOp after operation
   import ButtonStandard from "@/components/standard/ButtonStandard";
   import ModalComponent from "@/components/standard/ModalStandard";
   import {ref, watch} from 'vue';
   import {useCatStruct} from "@/composable/useCategory";
   import {modOp, getModOp, getDataRow} from "@/composable/useForm";
-  import OperationFields from "@/components/OperationFields";
+import OperationFields from "@/components/OperationFields";
+import {useRelStruct} from "@/composable/useRelevance";
   export default {
     name: "PaginationNav",
     components: {OperationFields, ModalComponent, ButtonStandard},
     props: {
-      modOp: Boolean
+      modOp: Boolean,
+      from: String
     },
     emits: ["updateElement"],
     setup(props, {emit}) {
@@ -76,94 +88,184 @@
       const descriptionSearch = ref('');
       const categorySearch = ref('');
 
+      const date = ref('');
+      const amount = ref('');
+      const description = ref('');
+      const category = ref('');
+      const categoryOp = ref([]);
+      categoryOp.value = useCatStruct(true);
+
+      const fromTotal = ref('');
+      const toTotal = ref('');
+      const desCSearch = ref('');
+      const relevanceSearch = ref('');
+      const nameSearch = ref('');
+
+      const nameC = ref('');
+      const relevance = ref('');
+      const relevanceOp = ref([]);
+      relevanceOp.value = useRelStruct(true);
+
+      const selectOp = ref(false);
+      selectOp.value = getModOp();
+
+      let today = new Date();
+
       const manageFields = (set = '') => {
-        if (set === 'F') {
+        if (props.from === 'L') {
+          if (set === 'F') {
+            fields.value = [
+              {
+                "classStyle": "display: inline-block; width: 50%;",
+                "reference": "fromDate",
+                "type": "date",
+                "modelValue": fromDate,
+                "required": "",
+                "label": "From Date"
+              },
+              {
+                "classStyle": "display: inline-block; width: 50%;",
+                "reference": "toDate",
+                "type": "date",
+                "modelValue": toDate,
+                "required": "",
+                "label": "To Date"
+              },
+              {
+                "classStyle": "display: inline-block; width: 50%;",
+                "reference": "fromValue",
+                "type": "number",
+                "modelValue": fromAmount,
+                "required": "",
+                "label": "From Amount"
+              },
+              {
+                "classStyle": "display: inline-block; width: 50%;",
+                "reference": "toValue",
+                "type": "number",
+                "modelValue": toAmount,
+                "required": "",
+                "label": "To Amount"
+              },
+              {
+                "classStyle": "",
+                "reference": "descriptionSearch",
+                "type": "text",
+                "modelValue": descriptionSearch,
+                "required": "",
+                "label": "Description"
+              },
+            ];
+            category.value = categorySearch.value;
+            return;
+          }
+
+          if (set === 'E') {
+            let dataToSet = getDataRow();
+            let dataToSetParse = dataToSet[0].split('/');
+            let actual = new Date(dataToSetParse[2], dataToSetParse[1] - 1, dataToSetParse[0]);
+            date.value = actual.getFullYear() + '-' + (actual.getMonth() + 1).toString().padStart(2, '0') + '-' + actual.getDate().toString().padStart(2, '0');
+            amount.value = dataToSet[3];
+            description.value = dataToSet[1];
+            category.value = dataToSet[2];
+          } else {
+            date.value = today.getFullYear() + '-' + (today.getMonth() + 1).toString().padStart(2, '0') + '-' + today.getDate().toString().padStart(2, '0');
+            amount.value = '';
+            description.value = '';
+            category.value = '';
+          }
           fields.value = [
             {
               "classStyle": "display: inline-block; width: 50%;",
-              "reference": "fromDate",
+              "reference": "date",
               "type": "date",
-              "modelValue": fromDate,
-              "required": "",
-              "label": "From Date"
+              "modelValue": date,
+              "required": "required",
+              "label": "Date"
             },
             {
               "classStyle": "display: inline-block; width: 50%;",
-              "reference": "toDate",
-              "type": "date",
-              "modelValue": toDate,
-              "required": "",
-              "label": "To Date"
-            },
-            {
-              "classStyle": "display: inline-block; width: 50%;",
-              "reference": "fromValue",
+              "reference": "amount",
               "type": "number",
-              "modelValue": fromAmount,
-              "required": "",
-              "label": "From Amount"
-            },
-            {
-              "classStyle": "display: inline-block; width: 50%;",
-              "reference": "toValue",
-              "type": "number",
-              "modelValue": toAmount,
-              "required": "",
-              "label": "To Amount"
+              "modelValue": amount,
+              "required": "required",
+              "label": "Amount"
             },
             {
               "classStyle": "",
-              "reference": "descriptionSearch",
+              "reference": "description",
               "type": "text",
-              "modelValue": descriptionSearch,
-              "required": "",
+              "modelValue": description,
+              "required": "required",
               "label": "Description"
             },
           ];
-          category.value = categorySearch.value;
-          return;
-        }
-
-        if (set === 'E') {
-          let dataToSet = getDataRow();
-          let dataToSetParse = dataToSet[0].split('/');
-          let actual = new Date(dataToSetParse[2], dataToSetParse[1] - 1, dataToSetParse[0]);
-          date.value = actual.getFullYear() + '-' + (actual.getMonth() + 1).toString().padStart(2, '0') + '-' + actual.getDate().toString().padStart(2, '0');
-          amount.value = dataToSet[3];
-          description.value = dataToSet[1];
-          category.value = dataToSet[2];
-        } else {
-          date.value = today.getFullYear() + '-' + (today.getMonth() + 1).toString().padStart(2, '0') + '-' + today.getDate().toString().padStart(2, '0');
-          amount.value = '';
-          description.value = '';
-          category.value = '';
-        }
-        fields.value = [
-          {
-            "classStyle": "display: inline-block; width: 50%;",
-            "reference": "date",
-            "type": "date",
-            "modelValue": date,
-            "required": "required",
-            "label": "Date"
-          },
-          {
-            "classStyle": "display: inline-block; width: 50%;",
-            "reference": "amount",
-            "type": "number",
-            "modelValue": amount,
-            "required": "required",
-            "label": "Amount"
-          },
-          {
+        } else if (props.from === 'C') {
+          if (set === 'F') {
+            fields.value = [
+              {
+                "classStyle": "",
+                "reference": "nameSearch",
+                "type": "text",
+                "modelValue": nameSearch,
+                "required": "",
+                "label": "Name"
+              },
+              {
+                "classStyle": "",
+                "reference": "desCSearch",
+                "type": "text",
+                "modelValue": desCSearch,
+                "required": "",
+                "label": "Description"
+              },
+              {
+                "classStyle": "display: inline-block; width: 50%;",
+                "reference": "fromTotal",
+                "type": "number",
+                "modelValue": fromTotal,
+                "required": "",
+                "label": "From Total"
+              },
+              {
+                "classStyle": "display: inline-block; width: 50%;",
+                "reference": "toTotal",
+                "type": "number",
+                "modelValue": toTotal,
+                "required": "",
+                "label": "To Total"
+              },
+            ];
+            relevance.value = relevanceSearch.value;
+            return;
+          }
+          fields.value = [];
+          if (set === 'E') {
+            let dataToSet = getDataRow();
+            description.value = dataToSet[1];
+            relevance.value = dataToSet[2];
+          } else {
+            nameC.value = '';
+            description.value = '';
+            relevance.value = '';
+            fields.value.push({
+              "classStyle": "",
+              "reference": "nameC",
+              "type": "text",
+              "modelValue": nameC,
+              "required": "required",
+              "label": "Name"
+            });
+          }
+          fields.value.push({
             "classStyle": "",
             "reference": "description",
             "type": "text",
             "modelValue": description,
             "required": "required",
             "label": "Description"
-          },
-        ];
+          });
+        }
       };
 
       const toggleModal = (op = '') => {
@@ -175,91 +277,106 @@
 
       const save = async () => {
         let body = [];
-        body['date'] = date.value;
-        body['category'] = category.value;
-        body['amount'] = amount.value;
+        if (props.from === 'L') {
+          body['date'] = date.value;
+          body['category'] = category.value;
+          body['amount'] = amount.value;
+        }
+        if (props.from === 'C') {
+          body['name'] = nameC.value;
+          body['relevance'] = relevance.value;
+        }
         body['description'] = description.value;
         hideButton.value = true;
-        if(await saveFile(body)){
+        if (await saveFile(body)) {
           manageFields();
           isOpen.value = !isOpen.value;
           emit("updateElement");
-        }else{
+        } else {
           alert('Compila tutti i campi.');
         }
       };
 
-      let date = ref('');
-      let amount = ref('');
-      let description = ref('');
-      let category = ref('');
-      let categoryOp = ref([]);
-
       const saveFile = async (data) => {
-        if(data['date'] === ''){
-          return false;
+        if (props.from === 'L') {
+          if (data['date'] === '') {
+            return false;
+          }
+          if (data['category'] === '') {
+            return false;
+          }
+          if (data['amount'] === '') {
+            return false;
+          }
         }
-        if(data['category'] === ''){
-          return false;
+        if (props.from === 'C') {
+          if (data['name'] === '') {
+            return false;
+          }
+          if (data['relevance'] === '') {
+            return false;
+          }
         }
-        if(data['amount'] === ''){
-          return false;
-        }
-        if(data['description'] === ''){
+        if (data['description'] === '') {
           return false;
         }
 
-        let list = localStorage.getItem('list');
-        let maxIdx = 1;
-        list = JSON.parse(list);
-        if(list === null){
-          list = [];
-        }else{
-          maxIdx = list[list.length-1].Index;
-          maxIdx += 1;
-        }
+        if (props.from === 'L') {
+          let list = localStorage.getItem('list');
+          let maxIdx = 1;
+          list = JSON.parse(list);
+          if (list === null) {
+            list = [];
+          } else {
+            maxIdx = list[list.length - 1].Index;
+            maxIdx += 1;
+          }
 
-        if (operation.value === 'C') {
-          list.push({
-            "Date": data['date'],
-            "Description": data['description'],
-            "Category": data['category'],
-            "Value": parseFloat(data['amount']),
-            "Index": maxIdx
-          });
-        }else{
-          let dataToSet = getDataRow();
-          let key = list.findIndex((element) => element['Index'] === dataToSet[4]);
-          list[key] = {
-            "Date": data['date'],
-            "Description": data['description'],
-            "Category": data['category'],
-            "Value": parseFloat(data['amount']),
-            "Index": dataToSet[4]
-          };
+          if (operation.value === 'C') {
+            list.push({
+              "Date": data['date'],
+              "Description": data['description'],
+              "Category": data['category'],
+              "Value": parseFloat(data['amount']),
+              "Index": maxIdx
+            });
+          } else {
+            let dataToSet = getDataRow();
+            let key = list.findIndex((element) => element['Index'] === dataToSet[4]);
+            list[key] = {
+              "Date": data['date'],
+              "Description": data['description'],
+              "Category": data['category'],
+              "Value": parseFloat(data['amount']),
+              "Index": dataToSet[4]
+            };
+          }
+          localStorage.setItem('list', JSON.stringify(list));
         }
-        localStorage.setItem('list', JSON.stringify(list));
+        if (props.from === 'C') {
+          // TODO: create check double
+          // TODO: edit
+        }
         return true;
       };
 
       const del = async () => {
-        let list = localStorage.getItem('list');
-        list = JSON.parse(list);
+        if (props.from === 'L') {
+          let list = localStorage.getItem('list');
+          list = JSON.parse(list);
 
-        let dataToSet = getDataRow();
-        let key = list.findIndex((element) => element['Index'] === dataToSet[4]);
-        list.splice(key,1);
+          let dataToSet = getDataRow();
+          let key = list.findIndex((element) => element['Index'] === dataToSet[4]);
+          list.splice(key, 1);
 
-        localStorage.setItem('list', JSON.stringify(list));
+          localStorage.setItem('list', JSON.stringify(list));
+        }
+        if (props.from === 'C') {
+          // TODO: check cat total != 0
+        }
         isOpen.value = !isOpen.value;
         emit("updateElement");
       };
-
-      let today = new Date();
-      categoryOp.value = useCatStruct(true);
-
-      const selectOp = ref(false);
-      selectOp.value = getModOp();
 
       watch(modOp, async (newV, oldV) => {
         if (newV !== oldV) {
@@ -268,22 +385,48 @@
       });
 
       const applyFilter = () => {
-        categorySearch.value = category.value;
+        let filters = [];
+        if (props.from === 'L') {
+          categorySearch.value = category.value;
+          filters = [
+            fromDate.value.trim(),
+            toDate.value.trim(),
+            fromAmount.value.trim(),
+            toAmount.value.trim(),
+            descriptionSearch.value.trim(),
+            categorySearch.value.trim()
+          ];
+        } else if (props.from === 'C') {
+          relevanceSearch.value = relevance.value;
+          filters = [
+            nameSearch.value.trim(),
+            desCSearch.value.trim(),
+            relevanceSearch.value.trim(),
+            fromTotal.value.trim(),
+            toTotal.value.trim()
+          ];
+        }
         toggleModal();
-        let filters = [
-          fromDate.value.trim(),
-          toDate.value.trim(),
-          fromAmount.value.trim(),
-          toAmount.value.trim(),
-          descriptionSearch.value.trim(),
-          categorySearch.value.trim()
-        ];
         emit("updateElement", filters);
       }
 
       return {
-        isOpen, date, amount, description, category, hideButton, categoryOp, operation, selectOp, fields,
-        del, toggleModal, save, applyFilter
+        isOpen,
+        date,
+        amount,
+        description,
+        category,
+        hideButton,
+        categoryOp,
+        operation,
+        selectOp,
+        fields,
+        relevance,
+        relevanceOp,
+        del,
+        toggleModal,
+        save,
+        applyFilter
       };
     }
   }
@@ -292,9 +435,9 @@
 <style scoped>
   .pagination {
     color: var(--darkcyan);
-    height: 6em;
+    height: 5em;
     display: flex;
-    margin: 1em auto 0;
+    margin: 0 auto;
     max-width: 960px;
   }
 
