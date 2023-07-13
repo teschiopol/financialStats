@@ -32,3 +32,18 @@ export function calculateRelevance(){
 
     return res;
 }
+
+export function useRelStruct(full = false) {
+
+    let rel = [];
+
+    for (const [key, value] of Object.entries(RelevanceData)) {
+        if (full) {
+            rel.push([key, value.Description]);
+        } else {
+            rel.push(key);
+        }
+    }
+
+    return rel;
+}

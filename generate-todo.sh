@@ -2,10 +2,6 @@
 
 printf "## TODO ✅\n\n" > TODO.md
 
-names=$(grep -n -r "TODO" src)
-
-while read -r n; do
-  printf "%s $n \n\n" "- [ ]" >> TODO.md
-done <<< "$names"
+php todoGen.php
 
 git add TODO.md

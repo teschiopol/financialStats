@@ -1,44 +1,55 @@
-import CategoryData from "@/assets/category.json";
-import {useListAll} from "@/composable/useList";
+export function useCategory(filter = ['', '', '', '', '']) {
 
-// TODO: make category dynamic
+    let categories = localStorage.getItem('categories');
+    categories = JSON.parse(categories);
 
-export function useCategory() {
-
-    let calculate = calculateCategory();
-    let res = [];
-
-    for (const [key, value] of Object.entries(CategoryData)) {
-        res.push({
-            Name: key,
-            Description: value.Description,
-            Relevance: value.Relevance,
-            Total: calculate[key]
-        })
-    }
-
-    return res;
-}
-
-function calculateCategory(){
-
-    let listAll = useListAll();
-
-    let res = {};
-    Object.keys(CategoryData).forEach(el => {
-        res[el] = 0
-    })
-
-    listAll.forEach(el => {
-        res[el.Category] += el.Value;
+    // Apply filter
+    // name, description, relevance, from amount, to amount
+    categories = categories.filter((el) => {
+        if (filter[0] !== '') {
+            if (!el.Name.toLowerCase().includes(filter[0].toLowerCase())) {
+                return false;
+            }
+        }
+        if (filter[1] !== '') {
+            if (!el.Description.toLowerCase().includes(filter[1].toLowerCase())) {
+                return false;
+            }
+        }
+        if (filter[2] !== '') {
+            if (el.Relevance !== filter[2]) {
+                return false;
+            }
+        }
+        if (filter[3] !== '') {
+            if (el.Total < filter[3]) {
+                return false;
+            }
+        }
+        if (filter[4] !== '') {
+            if (el.Total > filter[4]) {
+                return false;
+            }
+        }
+        return true;
     });
 
-    return res;
+    return categories;
 }
 
 export function useCatStruct(full = false) {
-    if (full) {
-        return Object.entries(CategoryData);
-    }
-    return Object.keys(CategoryData);
+    let CategoryData = localStorage.getItem('categories');
+    CategoryData = JSON.parse(CategoryData);
+
+    let cat = [];
+
+    CategoryData.forEach(el => {
+        if (full) {
+            cat.push([el.Name, el.Description]);
+        } else {
+            cat.push(el.Name);
+        }
+    })
+
+    return cat;
 }
