@@ -23,6 +23,8 @@ export async function useListAll(filter = ['', '', '', '', '', '']) {
                 return false;
             }
         }
+        let split = el.date.split(' ')[0].split('-');
+        el.date = split[2] + '/' + split[1] + '/' + split[0];
         if (filter[2] !== '') {
             if (el.amount < filter[2]) {
                 return false;

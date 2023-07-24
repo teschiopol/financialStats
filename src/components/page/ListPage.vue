@@ -49,8 +49,8 @@
         first_load.value = true;
       }
 
-      const updateList = (filter = ['', '', '', '', '', '']) => {
-        item.value = useListAll(filter);
+      const updateList = async (filter = ['', '', '', '', '', '']) => {
+        item.value = await useListAll(filter);
       };
 
       return {header, item, first_load, updateList, init};

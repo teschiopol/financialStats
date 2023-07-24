@@ -35,7 +35,7 @@
         <div v-if="from==='L'" class="input-container ic1">
           <select class="input" v-model="category" required>
             <option value="">Seleziona</option>
-            <option v-for="item in categoryOp" :key="item" :value="item[0]">{{ item[0] }} - {{ item[1] }}
+            <option v-for="item in categoryOp" :key="item" :value="item[2]">{{ item[0] }} - {{ item[1] }}
             </option>
           </select>
           <div class="cut"></div>
@@ -63,10 +63,11 @@
 import ButtonStandard from "@/components/standard/ButtonStandard";
 import ModalComponent from "@/components/standard/ModalStandard";
 import {onMounted, ref, watch} from 'vue';
-import {useCatStruct} from "@/composable/useCategory";
+import {getCatId, useCatStruct} from "@/composable/useCategory";
 import {modOp, getModOp, getDataRow} from "@/composable/useForm";
 import OperationFields from "@/components/OperationFields";
 import {useRelStruct} from "@/composable/useRelevance";
+import {pb} from "@/db";
 
 export default {
   name: "PaginationNav",
@@ -86,14 +87,14 @@ export default {
     const toDate = ref('');
     const fromAmount = ref('');
     const toAmount = ref('');
-      const descriptionSearch = ref('');
-      const categorySearch = ref('');
+    const descriptionSearch = ref('');
+    const categorySearch = ref('');
 
-      const date = ref('');
-      const amount = ref('');
-      const description = ref('');
-      const category = ref('');
-      const categoryOp = ref([]);
+    const date = ref('');
+    const amount = ref('');
+    const description = ref('');
+    const category = ref('');
+    const categoryOp = ref([]);
 
     const fromTotal = ref('');
     const toTotal = ref('');
@@ -115,162 +116,162 @@ export default {
 
     let today = new Date();
 
-    const manageFields = (set = '') => {
+    const manageFields = async (set = '') => {
       if (props.from === 'L') {
         if (set === 'F') {
           fields.value = [
-              {
-                "classStyle": "display: inline-block; width: 50%;",
-                "reference": "fromDate",
-                "type": "date",
-                "modelValue": fromDate,
-                "required": "",
-                "label": "From Date"
-              },
-              {
-                "classStyle": "display: inline-block; width: 50%;",
-                "reference": "toDate",
-                "type": "date",
-                "modelValue": toDate,
-                "required": "",
-                "label": "To Date"
-              },
-              {
-                "classStyle": "display: inline-block; width: 50%;",
-                "reference": "fromValue",
-                "type": "number",
-                "modelValue": fromAmount,
-                "required": "",
-                "label": "From Amount"
-              },
-              {
-                "classStyle": "display: inline-block; width: 50%;",
-                "reference": "toValue",
-                "type": "number",
-                "modelValue": toAmount,
-                "required": "",
-                "label": "To Amount"
-              },
-              {
-                "classStyle": "",
-                "reference": "descriptionSearch",
-                "type": "text",
-                "modelValue": descriptionSearch,
-                "required": "",
-                "label": "Description"
-              },
-            ];
-            category.value = categorySearch.value;
-            return;
-          }
-
-          if (set === 'E') {
-            let dataToSet = getDataRow();
-            let dataToSetParse = dataToSet[0].split('/');
-            let actual = new Date(dataToSetParse[2], dataToSetParse[1] - 1, dataToSetParse[0]);
-            date.value = actual.getFullYear() + '-' + (actual.getMonth() + 1).toString().padStart(2, '0') + '-' + actual.getDate().toString().padStart(2, '0');
-            amount.value = dataToSet[3];
-            description.value = dataToSet[1];
-            category.value = dataToSet[2];
-          } else {
-            date.value = today.getFullYear() + '-' + (today.getMonth() + 1).toString().padStart(2, '0') + '-' + today.getDate().toString().padStart(2, '0');
-            amount.value = '';
-            description.value = '';
-            category.value = '';
-          }
-          fields.value = [
             {
               "classStyle": "display: inline-block; width: 50%;",
-              "reference": "date",
+              "reference": "fromDate",
               "type": "date",
-              "modelValue": date,
-              "required": "required",
-              "label": "Date"
+              "modelValue": fromDate,
+              "required": "",
+              "label": "From Date"
             },
             {
               "classStyle": "display: inline-block; width: 50%;",
-              "reference": "amount",
+              "reference": "toDate",
+              "type": "date",
+              "modelValue": toDate,
+              "required": "",
+              "label": "To Date"
+            },
+            {
+              "classStyle": "display: inline-block; width: 50%;",
+              "reference": "fromValue",
               "type": "number",
-              "modelValue": amount,
-              "required": "required",
-              "label": "Amount"
+              "modelValue": fromAmount,
+              "required": "",
+              "label": "From Amount"
+            },
+            {
+              "classStyle": "display: inline-block; width: 50%;",
+              "reference": "toValue",
+              "type": "number",
+              "modelValue": toAmount,
+              "required": "",
+              "label": "To Amount"
             },
             {
               "classStyle": "",
-              "reference": "description",
+              "reference": "descriptionSearch",
               "type": "text",
-              "modelValue": description,
-              "required": "required",
+              "modelValue": descriptionSearch,
+              "required": "",
               "label": "Description"
             },
           ];
-        } else if (props.from === 'C') {
-          if (set === 'F') {
-            fields.value = [
-              {
-                "classStyle": "",
-                "reference": "nameSearch",
-                "type": "text",
-                "modelValue": nameSearch,
-                "required": "",
-                "label": "Name"
-              },
-              {
-                "classStyle": "",
-                "reference": "desCSearch",
-                "type": "text",
-                "modelValue": desCSearch,
-                "required": "",
-                "label": "Description"
-              },
-              {
-                "classStyle": "display: inline-block; width: 50%;",
-                "reference": "fromTotal",
-                "type": "number",
-                "modelValue": fromTotal,
-                "required": "",
-                "label": "From Total"
-              },
-              {
-                "classStyle": "display: inline-block; width: 50%;",
-                "reference": "toTotal",
-                "type": "number",
-                "modelValue": toTotal,
-                "required": "",
-                "label": "To Total"
-              },
-            ];
-            relevance.value = relevanceSearch.value;
-            return;
-          }
-          fields.value = [];
-          if (set === 'E') {
-            let dataToSet = getDataRow();
-            description.value = dataToSet[1];
-            relevance.value = dataToSet[2];
-          } else {
-            nameC.value = '';
-            description.value = '';
-            relevance.value = '';
-            fields.value.push({
-              "classStyle": "",
-              "reference": "nameC",
-              "type": "text",
-              "modelValue": nameC,
-              "required": "required",
-              "label": "Name"
-            });
-          }
-          fields.value.push({
+          category.value = categorySearch.value;
+          return;
+        }
+
+        if (set === 'E') {
+          let dataToSet = getDataRow();
+          let dataToSetParse = dataToSet[0].split('/');
+          let actual = new Date(dataToSetParse[2], dataToSetParse[1] - 1, dataToSetParse[0]);
+          date.value = actual.getFullYear() + '-' + (actual.getMonth() + 1).toString().padStart(2, '0') + '-' + actual.getDate().toString().padStart(2, '0');
+          amount.value = dataToSet[3];
+          description.value = dataToSet[1];
+          category.value = await getCatId(dataToSet[2]);
+        } else {
+          date.value = today.getFullYear() + '-' + (today.getMonth() + 1).toString().padStart(2, '0') + '-' + today.getDate().toString().padStart(2, '0');
+          amount.value = '';
+          description.value = '';
+          category.value = '';
+        }
+        fields.value = [
+          {
+            "classStyle": "display: inline-block; width: 50%;",
+            "reference": "date",
+            "type": "date",
+            "modelValue": date,
+            "required": "required",
+            "label": "Date"
+          },
+          {
+            "classStyle": "display: inline-block; width: 50%;",
+            "reference": "amount",
+            "type": "number",
+            "modelValue": amount,
+            "required": "required",
+            "label": "Amount"
+          },
+          {
             "classStyle": "",
             "reference": "description",
             "type": "text",
             "modelValue": description,
             "required": "required",
             "label": "Description"
+          },
+        ];
+      } else if (props.from === 'C') {
+        if (set === 'F') {
+          fields.value = [
+            {
+              "classStyle": "",
+              "reference": "nameSearch",
+              "type": "text",
+              "modelValue": nameSearch,
+              "required": "",
+              "label": "Name"
+            },
+            {
+              "classStyle": "",
+              "reference": "desCSearch",
+              "type": "text",
+              "modelValue": desCSearch,
+              "required": "",
+              "label": "Description"
+            },
+            {
+              "classStyle": "display: inline-block; width: 50%;",
+              "reference": "fromTotal",
+              "type": "number",
+              "modelValue": fromTotal,
+              "required": "",
+              "label": "From Total"
+            },
+            {
+              "classStyle": "display: inline-block; width: 50%;",
+              "reference": "toTotal",
+              "type": "number",
+              "modelValue": toTotal,
+              "required": "",
+              "label": "To Total"
+            },
+          ];
+          relevance.value = relevanceSearch.value;
+          return;
+        }
+        fields.value = [];
+        if (set === 'E') {
+          let dataToSet = getDataRow();
+          description.value = dataToSet[1];
+          relevance.value = dataToSet[2];
+        } else {
+          nameC.value = '';
+          description.value = '';
+          relevance.value = '';
+          fields.value.push({
+            "classStyle": "",
+            "reference": "nameC",
+            "type": "text",
+            "modelValue": nameC,
+            "required": "required",
+            "label": "Name"
           });
         }
-      };
+        fields.value.push({
+          "classStyle": "",
+          "reference": "description",
+          "type": "text",
+          "modelValue": description,
+          "required": "required",
+          "label": "Description"
+        });
+      }
+    };
 
       const toggleModal = (op = '') => {
         manageFields(op);
@@ -326,36 +327,29 @@ export default {
         }
 
         if (props.from === 'L') {
-          let list = localStorage.getItem('list');
-          let maxIdx = 1;
-          list = JSON.parse(list);
-          if (list === null) {
-            list = [];
-          } else {
-            maxIdx = list[list.length - 1].Index;
-            maxIdx += 1;
-          }
-
           if (operation.value === 'C') {
-            list.push({
-              "Date": data['date'],
-              "Description": data['description'],
-              "Category": data['category'],
-              "Value": parseFloat(data['amount']),
-              "Index": maxIdx
-            });
+            const insert = {
+              "amount": parseFloat(data['amount']),
+              "description": data['description'],
+              "date": data['date'],
+              "category": data['category']
+            };
+            const record = await pb.collection('list').create(insert);
+            console.log(record);
           } else {
             let dataToSet = getDataRow();
-            let key = list.findIndex((element) => element['Index'] === dataToSet[4]);
-            list[key] = {
-              "Date": data['date'],
-              "Description": data['description'],
-              "Category": data['category'],
-              "Value": parseFloat(data['amount']),
-              "Index": dataToSet[4]
+            const insert = {
+              "amount": parseFloat(data['amount']),
+              "description": data['description'],
+              "date": data['date'],
+              "category": data['category']
             };
+            const record = await pb.collection('list').update(dataToSet[4], insert);
+            console.log(record);
           }
-          localStorage.setItem('list', JSON.stringify(list));
+          // TODO: if okay
+          // update cat
+          // update rel
         }
         if (props.from === 'C') {
           // TODO: create check double

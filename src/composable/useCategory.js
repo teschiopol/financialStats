@@ -60,11 +60,16 @@ export async function useCatStruct(full = false) {
 
     categories.forEach(el => {
         if (full) {
-            cat.push([el.name, el.description]);
+            cat.push([el.name, el.description, el.id]);
         } else {
             cat.push(el.name);
         }
     })
 
     return cat;
+}
+
+export async function getCatId(label) {
+    const record = await pb.collection('category').getFirstListItem('name="' + label + '"');
+    return record.id
 }
