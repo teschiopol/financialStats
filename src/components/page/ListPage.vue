@@ -2,8 +2,8 @@
   <HeaderNav/>
   <SidebarStandard/>
   <h2 style="text-align: center">All Data</h2>
-  <PaginationNav @updateElement="updateList" from="L"/>
-  <TableStandard :head="header" :filteredList="item" custom-class="extend"/>
+  <PaginationNav @updateElement="updateList" @init_parent="init" from="L"/>
+  <TableStandard v-if="first_load" :head="header" :filteredList="item" custom-class="extend"/>
   <div v-if="item.length < 1">
     <p style="text-align: center">No Data Found...</p>
   </div>
@@ -27,10 +27,10 @@
     },
     setup() {
       const header = ref([
-        {"Name": "Date", "Sort": true, "Order": ""},
-        {"Name": "Description", "Sort": true, "Order": ""},
-        {"Name": "Category", "Sort": true, "Order": ""},
-        {"Name": "Value", "Sort": true, "Order": ""}
+        {"Name": "date", "Sort": true, "Order": ""},
+        {"Name": "description", "Sort": true, "Order": ""},
+        {"Name": "category", "Sort": true, "Order": ""},
+        {"Name": "amount", "Sort": true, "Order": ""}
       ]);
 
       onMounted(() => {
@@ -40,14 +40,20 @@
         }
       });
 
+      const first_load = ref(false);
+
       const item = ref([]);
-      item.value = useListAll();
+
+      const init = async () => {
+        item.value = await useListAll();
+        first_load.value = true;
+      }
 
       const updateList = (filter = ['', '', '', '', '', '']) => {
         item.value = useListAll(filter);
       };
 
-      return {header, item, updateList};
+      return {header, item, first_load, updateList, init};
     }
   }
 </script>

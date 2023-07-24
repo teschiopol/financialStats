@@ -8,8 +8,10 @@
       </tr>
     </thead>
     <tbody>
-      <tr v-for="item in filteredList" :key='item' :id="item['Index']" @click="selectRow(item['Index'])">
-        <td v-for="field in head" :key='field["Name"]' :class="alignType(item[field['Name']])">{{cast(item[field["Name"]])}}</td>
+      <tr v-for="item in filteredList" :key='item' :id="item['id']" @click="selectRow(item['id'])">
+        <td v-for="field in head" :key='field["Name"]' :class="alignType(item[field['Name']])">
+          {{ cast(item[field["Name"]]) }}
+        </td>
       </tr>
     </tbody>
   </table>

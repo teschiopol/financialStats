@@ -4,8 +4,7 @@ let relevance;
 
 async function initRel() {
     relevance = await pb.collection('relevance').getFullList({
-        sort: '-total',
-        expand: 'relevance',
+        sort: '-total'
     });
 }
 
@@ -16,6 +15,8 @@ export async function useRelevance() {
     if (relevance === undefined) {
         await initRel();
     }
+
+    tmp_rel = relevance;
 
     return tmp_rel;
 }
