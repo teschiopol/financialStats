@@ -60,31 +60,32 @@
 
 <script>
 // TODO: fix selectOp after operation
-  import ButtonStandard from "@/components/standard/ButtonStandard";
-  import ModalComponent from "@/components/standard/ModalStandard";
-  import {ref, watch} from 'vue';
-  import {useCatStruct} from "@/composable/useCategory";
-  import {modOp, getModOp, getDataRow} from "@/composable/useForm";
+import ButtonStandard from "@/components/standard/ButtonStandard";
+import ModalComponent from "@/components/standard/ModalStandard";
+import {onMounted, ref, watch} from 'vue';
+import {useCatStruct} from "@/composable/useCategory";
+import {modOp, getModOp, getDataRow} from "@/composable/useForm";
 import OperationFields from "@/components/OperationFields";
 import {useRelStruct} from "@/composable/useRelevance";
-  export default {
-    name: "PaginationNav",
-    components: {OperationFields, ModalComponent, ButtonStandard},
-    props: {
-      modOp: Boolean,
-      from: String
-    },
-    emits: ["updateElement"],
-    setup(props, {emit}) {
-      const isOpen = ref(false);
-      const operation = ref('C');
-      const hideButton = ref(false);
-      const fields = ref([]);
 
-      const fromDate = ref('');
-      const toDate = ref('');
-      const fromAmount = ref('');
-      const toAmount = ref('');
+export default {
+  name: "PaginationNav",
+  components: {OperationFields, ModalComponent, ButtonStandard},
+  props: {
+    modOp: Boolean,
+    from: String
+  },
+  emits: ["updateElement", "init_parent"],
+  setup(props, {emit}) {
+    const isOpen = ref(false);
+    const operation = ref('C');
+    const hideButton = ref(false);
+    const fields = ref([]);
+
+    const fromDate = ref('');
+    const toDate = ref('');
+    const fromAmount = ref('');
+    const toAmount = ref('');
       const descriptionSearch = ref('');
       const categorySearch = ref('');
 
@@ -93,28 +94,31 @@ import {useRelStruct} from "@/composable/useRelevance";
       const description = ref('');
       const category = ref('');
       const categoryOp = ref([]);
-      categoryOp.value = useCatStruct(true);
 
-      const fromTotal = ref('');
-      const toTotal = ref('');
-      const desCSearch = ref('');
-      const relevanceSearch = ref('');
-      const nameSearch = ref('');
+    const fromTotal = ref('');
+    const toTotal = ref('');
+    const desCSearch = ref('');
+    const relevanceSearch = ref('');
+    const nameSearch = ref('');
 
-      const nameC = ref('');
-      const relevance = ref('');
-      const relevanceOp = ref([]);
-      relevanceOp.value = useRelStruct(true);
+    const nameC = ref('');
+    const relevance = ref('');
+    const relevanceOp = ref([]);
 
-      const selectOp = ref(false);
-      selectOp.value = getModOp();
+    const init = async () => {
+      categoryOp.value = await useCatStruct(true);
+      relevanceOp.value = await useRelStruct(true);
+    }
 
-      let today = new Date();
+    const selectOp = ref(false);
+    selectOp.value = getModOp();
 
-      const manageFields = (set = '') => {
-        if (props.from === 'L') {
-          if (set === 'F') {
-            fields.value = [
+    let today = new Date();
+
+    const manageFields = (set = '') => {
+      if (props.from === 'L') {
+        if (set === 'F') {
+          fields.value = [
               {
                 "classStyle": "display: inline-block; width: 50%;",
                 "reference": "fromDate",
@@ -410,15 +414,23 @@ import {useRelStruct} from "@/composable/useRelevance";
         emit("updateElement", filters);
       }
 
-      return {
-        isOpen,
-        date,
-        amount,
-        description,
-        category,
-        hideButton,
-        categoryOp,
-        operation,
+    onMounted(() => {
+      init().then(
+          () => {
+            emit("init_parent");
+          }
+      )
+    });
+
+    return {
+      isOpen,
+      date,
+      amount,
+      description,
+      category,
+      hideButton,
+      categoryOp,
+      operation,
         selectOp,
         fields,
         relevance,

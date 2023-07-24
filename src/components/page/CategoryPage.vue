@@ -2,8 +2,8 @@
   <HeaderNav/>
   <SidebarStandard/>
   <h2 style="text-align: center">Categories</h2>
-  <PaginationNav @updateElement="updateList" from="C"/>
-  <TableStandard :head="header" :filteredList="item" />
+  <PaginationNav @updateElement="updateList" @init_parent="init" from="C"/>
+  <TableStandard v-if="first_load" :head="header" :filteredList="item"/>
 </template>
 
 <script>
@@ -24,10 +24,10 @@
     },
     setup() {
       const header = ref([
-        {"Name": "Name", "Sort": true, "Order": ""},
-        {"Name": "Description", "Sort": false},
-        {"Name": "Relevance", "Sort": true, "Order": ""},
-        {"Name": "Total", "Sort": true, "Order": ""}
+        {"Name": "name", "Sort": true, "Order": ""},
+        {"Name": "description", "Sort": false},
+        {"Name": "relevance", "Sort": true, "Order": ""},
+        {"Name": "total", "Sort": true, "Order": ""}
       ]);
 
       onMounted(() => {
@@ -37,14 +37,20 @@
         }
       });
 
-      const item = ref([]);
-      item.value = useCategory();
+      const first_load = ref(false);
 
-      const updateList = (filter = ['', '', '', '', '']) => {
-        item.value = useCategory(filter);
+      const item = ref([]);
+
+      const init = async () => {
+        item.value = await useCategory();
+        first_load.value = true;
+      }
+
+      const updateList = async (filter = ['', '', '', '', '']) => {
+        item.value = await useCategory(filter);
       };
 
-      return {header, item, updateList};
+      return {header, item, first_load, updateList, init};
     }
   }
 </script>

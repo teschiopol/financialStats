@@ -27,13 +27,18 @@
     },
     setup(){
       const header = ref([
-        {"Name":"Name","Sort":true, "Order":""},
-        {"Name":"Description","Sort":false},
-        {"Name":"Total", "Sort":true, "Order":""},
+        {"Name": "name", "Sort": true, "Order": ""},
+        {"Name": "description", "Sort": false},
+        {"Name": "total", "Sort": true, "Order": ""},
       ]);
 
       const item = ref([]);
-      item.value = useRelevance();
+
+      const init = async () => {
+        item.value = await useRelevance();
+      }
+
+      init();
 
       return {header, item};
     }

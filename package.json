@@ -8,6 +8,7 @@
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
+    "pocket:serve": "cd .. && cd pocketbase && ./pocketbase serve",
     "electron:build": "vue-cli-service electron:build",
     "electron:serve": "vue-cli-service electron:serve",
     "postinstall": "electron-builder install-app-deps",
@@ -22,6 +23,7 @@
     "@vue/vue3-jest": "^27.0.0",
     "chart.js": "^4.2.1",
     "core-js": "^3.8.3",
+    "pocketbase": "^0.15.3",
     "vue": "^3.2.13",
     "vue-particlejs": "^1.1.0",
     "vue-router": "^4.0.13"

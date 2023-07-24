@@ -1,49 +1,40 @@
-import {useCategory} from "@/composable/useCategory";
-import RelevanceData from "@/assets/relevance.json";
+import {pb} from "@/db";
 
-export function useRelevance(){
+let relevance;
 
-    let calculate = calculateRelevance();
-    let res = [];
+async function initRel() {
+    relevance = await pb.collection('relevance').getFullList({
+        sort: '-total',
+        expand: 'relevance',
+    });
+}
 
-    for (const [key, value] of Object.entries(RelevanceData)){
-        res.push({
-            Name: key,
-            Description: value.Description,
-            Total: calculate[key]
-        })
+export async function useRelevance() {
+
+    let tmp_rel = null;
+
+    if (relevance === undefined) {
+        await initRel();
     }
 
-    return res;
+    return tmp_rel;
 }
 
-export function calculateRelevance(){
-
-    let category = useCategory();
-
-    let res = {};
-    Object.keys(RelevanceData).forEach(el => {
-        res[el] = 0
-    })
-
-    category.forEach(el => {
-        res[el.Relevance] += el.Total;
-    });
-
-    return res;
-}
-
-export function useRelStruct(full = false) {
+export async function useRelStruct(full = false) {
 
     let rel = [];
 
-    for (const [key, value] of Object.entries(RelevanceData)) {
-        if (full) {
-            rel.push([key, value.Description]);
-        } else {
-            rel.push(key);
-        }
+    if (relevance === undefined) {
+        await initRel();
     }
+
+    relevance.forEach(el => {
+        if (full) {
+            rel.push([el.name, el.description]);
+        } else {
+            rel.push(el.name);
+        }
+    })
 
     return rel;
 }

@@ -2,8 +2,8 @@
   <table id="tableComponent" :class="customClass">
     <thead>
       <tr>
-        <th v-for="field in head" :key='field["Name"]' @click="sortTable(field)" >
-          {{field["Name"]}}  <span v-if="field['Sort']">{{field["Order"]}}</span>
+        <th v-for="field in head" :key='field["Name"]' @click="sortTable(field)">
+          {{ field["Name"].toUpperCase() }} <span v-if="field['Sort']">{{ field["Order"] }}</span>
         </th>
       </tr>
     </thead>
