@@ -34,9 +34,3 @@ npm run build
 ```
 npm test
 ```
-
-### Make it a desktop app 🖥
-
-```
-npm run electron:build
-```

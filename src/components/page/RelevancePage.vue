@@ -8,7 +8,7 @@
 <script>
   import HeaderNav from "@/components/HeaderNav";
   import TableStandard from "@/components/standard/TableStandard";
-  import {ref} from "vue";
+  import {onMounted, ref} from "vue";
   import SidebarStandard from "@/components/standard/SidebarStandard";
   import {useRelevance} from "@/composable/useRelevance";
   export default {
@@ -19,18 +19,19 @@
       TableStandard,
       HeaderNav
     },
-    mounted() {
-      let user = localStorage.getItem('user-info');
-      if (!user) {
-        this.$router.push({name: "Login"});
-      }
-    },
-    setup(){
+    setup() {
       const header = ref([
         {"Name": "name", "Sort": true, "Order": ""},
         {"Name": "description", "Sort": false},
         {"Name": "total", "Sort": true, "Order": ""},
       ]);
+
+      onMounted(() => {
+        let user = localStorage.getItem('user-info');
+        if (!user) {
+          this.$router.push({name: "Login"});
+        }
+      });
 
       const item = ref([]);
 

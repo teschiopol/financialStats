@@ -9,10 +9,6 @@
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
     "pocket:serve": "cd .. && cd pocketbase && ./pocketbase serve",
-    "electron:build": "vue-cli-service electron:build",
-    "electron:serve": "vue-cli-service electron:serve",
-    "postinstall": "electron-builder install-app-deps",
-    "postuninstall": "electron-builder install-app-deps",
     "test": "vue-cli-service test:unit",
     "todo": "./generate-todo.sh"
   },
@@ -35,11 +31,8 @@
     "@vue/cli-plugin-eslint": "~5.0.0",
     "@vue/cli-plugin-unit-jest": "~5.0.0",
     "@vue/cli-service": "~5.0.0",
-    "electron": "^12.0.0",
-    "electron-devtools-installer": "^3.1.0",
     "eslint": "^7.32.0",
-    "eslint-plugin-vue": "^8.0.3",
-    "vue-cli-plugin-electron-builder": "~2.1.1"
+    "eslint-plugin-vue": "^8.0.3"
   },
   "eslintConfig": {
     "root": true,

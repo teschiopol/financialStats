@@ -10,7 +10,7 @@ async function initRel() {
 
 export async function useRelevance() {
 
-    let tmp_rel = null;
+    let tmp_rel;
 
     if (relevance === undefined) {
         await initRel();
