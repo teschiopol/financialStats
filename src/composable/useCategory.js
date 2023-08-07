@@ -9,11 +9,11 @@ async function initCat() {
     });
 }
 
-export async function useCategory(filter = ['', '', '', '', '']) {
+export async function useCategory(filter = ['', '', '', '', ''], force = false) {
 
     let tmp_cat;
 
-    if (categories === undefined) {
+    if (categories === undefined || force) {
         await initCat();
     }
 

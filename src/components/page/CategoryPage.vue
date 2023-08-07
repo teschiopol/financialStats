@@ -47,7 +47,7 @@
       }
 
       const updateList = async (filter = ['', '', '', '', '']) => {
-        item.value = await useCategory(filter);
+        item.value = await useCategory(filter, true);
       };
 
       return {header, item, first_load, updateList, init};

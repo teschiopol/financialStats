@@ -31,11 +31,16 @@ export async function useRelStruct(full = false) {
 
     relevance.forEach(el => {
         if (full) {
-            rel.push([el.name, el.description]);
+            rel.push([el.name, el.description, el.id]);
         } else {
             rel.push(el.name);
         }
     })
 
     return rel;
+}
+
+export async function getRelId(label) {
+    const record = await pb.collection('relevance').getFirstListItem('name="' + label + '"');
+    return record.id
 }

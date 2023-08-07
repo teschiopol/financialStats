@@ -44,7 +44,7 @@
         <div v-if="from==='C'" class="input-container ic1">
           <select class="input" v-model="relevance" required>
             <option value="">Seleziona</option>
-            <option v-for="item in relevanceOp" :key="item" :value="item[0]">{{ item[0] }} - {{ item[1] }}
+            <option v-for="item in relevanceOp" :key="item" :value="item[2]">{{ item[0] }} - {{ item[1] }}
             </option>
           </select>
           <div class="cut"></div>
@@ -66,8 +66,8 @@ import {onMounted, ref, watch} from 'vue';
 import {getCatId, useCatStruct} from "@/composable/useCategory";
 import {modOp, getModOp, getDataRow} from "@/composable/useForm";
 import OperationFields from "@/components/OperationFields";
-import {useRelStruct} from "@/composable/useRelevance";
-import {pb} from "@/db";
+import {getRelId, useRelStruct} from "@/composable/useRelevance";
+import {useToDelete, useToSave} from "@/composable/usePagination";
 
 export default {
   name: "PaginationNav",
@@ -247,21 +247,22 @@ export default {
         fields.value = [];
         if (set === 'E') {
           let dataToSet = getDataRow();
+          nameC.value = dataToSet[0];
           description.value = dataToSet[1];
-          relevance.value = dataToSet[2];
+          relevance.value = await getRelId(dataToSet[2]);
         } else {
           nameC.value = '';
           description.value = '';
           relevance.value = '';
-          fields.value.push({
-            "classStyle": "",
-            "reference": "nameC",
-            "type": "text",
-            "modelValue": nameC,
-            "required": "required",
-            "label": "Name"
-          });
         }
+        fields.value.push({
+          "classStyle": "",
+          "reference": "nameC",
+          "type": "text",
+          "modelValue": nameC,
+          "required": "required",
+          "label": "Name"
+        });
         fields.value.push({
           "classStyle": "",
           "reference": "description",
@@ -294,7 +295,7 @@ export default {
         body['description'] = description.value;
         hideButton.value = true;
         if (await saveFile(body)) {
-          manageFields();
+          await manageFields();
           isOpen.value = !isOpen.value;
           emit("updateElement");
         } else {
@@ -303,6 +304,7 @@ export default {
       };
 
       const saveFile = async (data) => {
+        let content;
         if (props.from === 'L') {
           if (data['date'] === '') {
             return false;
@@ -313,6 +315,12 @@ export default {
           if (data['amount'] === '') {
             return false;
           }
+          content = {
+            "amount": parseFloat(data['amount']),
+            "description": data['description'],
+            "date": data['date'],
+            "category": data['category']
+          };
         }
         if (props.from === 'C') {
           if (data['name'] === '') {
@@ -321,59 +329,41 @@ export default {
           if (data['relevance'] === '') {
             return false;
           }
+          content = {
+            "description": data['description'],
+            "name": data['name'],
+            "relevance": data['relevance']
+          };
         }
         if (data['description'] === '') {
           return false;
         }
 
-        if (props.from === 'L') {
-          if (operation.value === 'C') {
-            const insert = {
-              "amount": parseFloat(data['amount']),
-              "description": data['description'],
-              "date": data['date'],
-              "category": data['category']
-            };
-            const record = await pb.collection('list').create(insert);
-            console.log(record);
-          } else {
-            let dataToSet = getDataRow();
-            const insert = {
-              "amount": parseFloat(data['amount']),
-              "description": data['description'],
-              "date": data['date'],
-              "category": data['category']
-            };
-            const record = await pb.collection('list').update(dataToSet[4], insert);
-            console.log(record);
-          }
-          // TODO: if okay
-          // update cat
-          // update rel
+        let from = props.from === 'C' ? 'category' : 'list';
+        let id = null;
+        if (operation.value === 'E') {
+          let dataToSet = getDataRow();
+          id = dataToSet[4];
         }
-        if (props.from === 'C') {
-          // TODO: create check double
-          // TODO: edit
-        }
-        return true;
+        return useToSave(from, operation.value, content, id);
       };
 
       const del = async () => {
-        if (props.from === 'L') {
-          let list = localStorage.getItem('list');
-          list = JSON.parse(list);
-
-          let dataToSet = getDataRow();
-          let key = list.findIndex((element) => element['Index'] === dataToSet[4]);
-          list.splice(key, 1);
-
-          localStorage.setItem('list', JSON.stringify(list));
-        }
+        let dataToSet = getDataRow();
+        let id = dataToSet[4];
+        let from = props.from === 'C' ? 'category' : 'list';
         if (props.from === 'C') {
-          // TODO: check cat total != 0
+          if (dataToSet[3] !== "0.00") {
+            alert('Categoria valorizzata');
+            return false;
+          }
         }
-        isOpen.value = !isOpen.value;
-        emit("updateElement");
+        if (await useToDelete(from, id)) {
+          isOpen.value = !isOpen.value;
+          emit("updateElement");
+        } else {
+          // TODO: error
+        }
       };
 
       watch(modOp, async (newV, oldV) => {
