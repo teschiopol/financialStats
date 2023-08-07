@@ -8,11 +8,11 @@ async function initRel() {
     });
 }
 
-export async function useRelevance() {
+export async function useRelevance(force = false) {
 
     let tmp_rel;
 
-    if (relevance === undefined) {
+    if (relevance === undefined || force) {
         await initRel();
     }
 
