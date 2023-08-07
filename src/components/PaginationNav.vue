@@ -59,7 +59,7 @@
 </template>
 
 <script>
-// TODO: fix selectOp after operation
+
 import ButtonStandard from "@/components/standard/ButtonStandard";
 import ModalComponent from "@/components/standard/ModalStandard";
 import {onMounted, ref, watch} from 'vue';
@@ -362,7 +362,7 @@ export default {
           isOpen.value = !isOpen.value;
           emit("updateElement");
         } else {
-          // TODO: error
+          alert("Error while deleting");
         }
       };
 

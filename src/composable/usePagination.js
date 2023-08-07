@@ -8,11 +8,8 @@ export async function useToSave(from, type, content, id) {
         record = await pb.collection(from).update(id, content);
     }
     if (record?.id !== null) {
-        // TODO: if okay
-        // update cat
-        // update rel
+        await updateTotal(from, type)
     }
-    console.log(record);
 
     return true;
 }
@@ -24,10 +21,17 @@ export async function useToDelete(from, id) {
     } else {
         record = await pb.collection(from).delete(id);
     }
-    // TODO: if okay
-    // update cat
-    // update rel
-    console.log(record);
+    if (record) {
+        await updateTotal(from);
+    }
 
     return true;
+}
+
+// TODO: update total
+async function updateTotal(from) {
+    if (from === 'list') {
+        // update cat
+    }
+
 }

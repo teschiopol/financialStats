@@ -13,6 +13,7 @@
   import SidebarStandard from "@/components/standard/SidebarStandard";
   import PaginationNav from "@/components/PaginationNav";
   import {useCategory} from "@/composable/useCategory";
+  import {setModOp} from "@/composable/useForm";
   export default {
     name: "CategoryPage",
     title: "Category",
@@ -44,10 +45,12 @@
       const init = async () => {
         item.value = await useCategory();
         first_load.value = true;
+        setModOp(false);
       }
 
       const updateList = async (filter = ['', '', '', '', '']) => {
         item.value = await useCategory(filter, true);
+        setModOp(false);
       };
 
       return {header, item, first_load, updateList, init};

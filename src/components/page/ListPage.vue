@@ -16,6 +16,7 @@
   import {onMounted, ref} from "vue";
   import {useListAll} from "@/composable/useList";
   import PaginationNav from "@/components/PaginationNav";
+  import {setModOp} from "@/composable/useForm";
   export default {
     name: "ListPage",
     title: "List",
@@ -47,10 +48,12 @@
       const init = async () => {
         item.value = await useListAll();
         first_load.value = true;
+        setModOp(false);
       }
 
       const updateList = async (filter = ['', '', '', '', '', '']) => {
         item.value = await useListAll(filter);
+        setModOp(false);
       };
 
       return {header, item, first_load, updateList, init};
