@@ -5,7 +5,7 @@ export async function useListAll(filter = ['', '', '', '', '', '']) {
     let tmp_list;
 
     let list = await pb.collection('list').getFullList({
-        sort: '-date',
+        sort: 'date',
         expand: 'category',
     });
 

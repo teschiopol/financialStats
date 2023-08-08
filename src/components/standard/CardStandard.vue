@@ -10,11 +10,11 @@
       <h6 :class="customClass">Relevance</h6>
       <div v-for="item in relevance" :key="item" class="skill">
         <div>
-          <h6 style="float: left">{{item.id}}</h6>
-          <h6 style="float: right">{{item.value}}</h6>
+          <h6 style="float: left">{{ item.name }}</h6>
+          <h6 style="float: right">{{ item.total }}</h6>
         </div>
         <br>
-        <div class="bar" :class="customClassBg" :style="{width: item.value}">
+        <div class="bar" :class="customClassBg" :style="{width: item.total}">
         </div>
       </div>
     </div>
@@ -37,13 +37,6 @@
       customClass:{
         type: String
       }
-    },
-    setup(props){
-      props.relevance.forEach(
-          (el) => {
-            el.value = `${el.value}%`;
-          }
-      );
     }
   }
 </script>
