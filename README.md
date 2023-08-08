@@ -37,3 +37,5 @@ npm test
 ## Pocketbase
 
 You need to install [Pocketbase](https://pocketbase.io/) and then eventually change the path in package.json.
+
+The template is in src/assets/.
