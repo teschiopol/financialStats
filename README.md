@@ -8,7 +8,6 @@
 
 [cc-by-nc-sa-shield]: https://img.shields.io/badge/License-CC%20BY--NC--SA%204.0-lightgrey.svg
 
-
 A local app to manage your personal finance based on relevance.
 
 ### Requirements 📝
@@ -34,3 +33,7 @@ npm run build
 ```
 npm test
 ```
+
+## Pocketbase
+
+You need to install [Pocketbase](https://pocketbase.io/) and then eventually change the path in package.json.
