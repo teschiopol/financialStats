@@ -56,7 +56,21 @@ The template is in src/assets/.
 
 Don't forget to set the parameters in the env file.
 
-### Screenshot 🖥
+### With Docker 🐳
+
+Create image
+
+```
+docker build -t YOUR_DOCKER_ID/PB_NAME . -f PB.Dockerfile   
+```
+
+Run container
+
+```
+docker run -p 8090:8090 YOUR_DOCKER_ID/PB_NAME
+```
+
+## Screenshot 🖥
 
 ![home total compare](src/assets/doc/home_total_compare.png)
 
