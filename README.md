@@ -8,23 +8,15 @@
 
 [cc-by-nc-sa-shield]: https://img.shields.io/badge/License-CC%20BY--NC--SA%204.0-lightgrey.svg
 
-A local app to manage your personal finance based on relevance.
+A local web app to manage your personal finance based on relevance.
 
 ## Docker 🐳
 
-Create image
-
 ```
-docker build -t YOUR_DOCKER_ID/PROJECT_NAME . -f Run.Dockerfile   
+docker compose up     
 ```
 
-Run container
-
-```
-docker run -p 8080:80 YOUR_DOCKER_ID/PROJECT_NAME
-```
-
-## Local 📝
+## App 💻
 
 ```
 npm install
@@ -46,6 +38,20 @@ npm run build
 
 ```
 npm test
+```
+
+### With Docker 🐳
+
+Create image
+
+```
+docker build -t YOUR_DOCKER_ID/PROJECT_NAME . -f Run.Dockerfile   
+```
+
+Run container
+
+```
+docker run -p 8080:80 YOUR_DOCKER_ID/PROJECT_NAME
 ```
 
 ## Pocketbase 🗂
@@ -70,7 +76,7 @@ Run container
 docker run -p 8090:8090 YOUR_DOCKER_ID/PB_NAME
 ```
 
-## Screenshot 🖥
+## Screenshot 📷
 
 ![home total compare](src/assets/doc/home_total_compare.png)
 
@@ -91,3 +97,7 @@ Categories sample.
 ![list edit](src/assets/doc/list_edit.png)
 
 Edit operation on data list.
+
+### Credits 🦄
+
+[Unicorne](https://www.unicorne.it/)
