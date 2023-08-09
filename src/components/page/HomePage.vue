@@ -84,6 +84,7 @@ export default {
         let sum = 0;
         let abs_sum = 0;
         relevance.value.forEach(el => {
+          // TODO: fix this dynamic
           if (el.name === 'Incassi') {
             sum += el.total;
           } else {

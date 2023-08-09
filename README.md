@@ -34,8 +34,32 @@ npm run build
 npm test
 ```
 
-## Pocketbase
+## Pocketbase 🗂
 
 You need to install [Pocketbase](https://pocketbase.io/) and then eventually change the path in package.json.
 
 The template is in src/assets/.
+
+Don't forget to set the parameters in the env file.
+
+### Screenshot 🖥
+
+![home total compare](src/assets/doc/home_total_compare.png)
+
+Compare every day with months to have a perception of your monthly expenses routine.
+
+![home cat](src/assets/doc/home_cat.png)
+
+Total of all categories.
+
+![rel](src/assets/doc/rel.png)
+
+Relevance subdivision.
+
+![cat](src/assets/doc/cat.png)
+
+Categories sample.
+
+![list edit](src/assets/doc/list_edit.png)
+
+Edit operation on data list.
