@@ -10,7 +10,21 @@
 
 A local app to manage your personal finance based on relevance.
 
-### Requirements 📝
+## Docker 🐳
+
+Create image
+
+```
+docker build -t YOUR_DOCKER_ID/PROJECT_NAME . -f Run.Dockerfile   
+```
+
+Run container
+
+```
+docker run -p 8080:80 YOUR_DOCKER_ID/PROJECT_NAME
+```
+
+## Local 📝
 
 ```
 npm install
