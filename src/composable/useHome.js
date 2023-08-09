@@ -38,6 +38,7 @@ export async function useTotalYear() {
                 actual = el.date.split('/')[1];
                 option += 1;
             }
+            // TODO: fix this dynamic and prepare basic import data
             if (el.expand.category.relevance === '8nnxgw4u6gvfx47') {
                 sum += el.amount;
             } else {

@@ -82,12 +82,14 @@ export default {
       const init = async () => {
         relevance.value = await useRelevance();
         let sum = 0;
+        let abs_sum = 0;
         relevance.value.forEach(el => {
           if (el.name === 'Incassi') {
             sum += el.total;
           } else {
             sum -= el.total;
           }
+          abs_sum += el.total;
         });
 
         balance.value = sum.toFixed(2);
@@ -100,7 +102,7 @@ export default {
         relevance.value.forEach(el => {
           relToPass.value.push({
             "name": el.name,
-            "total": Math.abs(((100 * el.total) / balance.value)).toFixed(0) + '%'
+            "total": Math.abs(((100 * el.total) / abs_sum)).toFixed(0) + '%'
           });
         })
 

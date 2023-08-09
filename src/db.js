@@ -1,6 +1,6 @@
 import PocketBase from 'pocketbase';
 
-const pb = new PocketBase('http://127.0.0.1:8090');
+const pb = new PocketBase(process.env.VUE_APP_PB_URL);
 
 const user = async () => {
     // eslint-disable-next-line no-unused-vars
