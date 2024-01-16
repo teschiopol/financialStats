@@ -11,7 +11,8 @@ ADD https://github.com/pocketbase/pocketbase/releases/download/v${PB_VERSION}/po
 RUN unzip /tmp/pb.zip -d /pb/
 
 # copy the local pb_migrations dir into the image
-# COPY ./pocketbase_sample/pb_migrations /pb/pb_migrations
+COPY ./setup/pb_migrations /pb/pb_migrations
+COPY ./setup/pb_data /pb/pb_data
 
 EXPOSE 8090
 

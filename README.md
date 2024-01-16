@@ -28,11 +28,11 @@ docker compose up
 
 ### Pocketbase 🗂
 
-1) Go to http://0.0.0.0:8090/_/ and create your account.
+1) Go to http://0.0.0.0:8090/_/
 
-2) Set your parameters in the env file.
+2) Log with data that you found in the env file.
 
-3) Import the collection in 'Settings
+3) Optional. If you have some problem, import the collection in 'Settings/
    Import collections'. The setup file is in setup/pb_schema.json.
 
 For more info see [Pocketbase](https://pocketbase.io/).
