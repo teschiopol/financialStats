@@ -8,7 +8,6 @@
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
-    "pocket:serve": "cd .. && cd pocketbase && ./pocketbase serve",
     "test": "vue-cli-service test:unit",
     "todo": "./generate-todo.sh"
   },

@@ -10,29 +10,32 @@
 
 A local web app to manage your personal finance based on relevance.
 
-## Docker 🐳
+## Setup💾
 
-```
-docker compose up     
-```
-
-## App 💻
+After clone the repo and install the dependencies, you need to configure Pocketbase.
 
 ```
 npm install
 ```
 
-### Compiles and hot-reloads for development 👨🏻‍💻
+### Docker 🐳
 
-```
-npm run serve
+If you don't have, [install](https://docs.docker.com/guides/get-started/) it.
+
+```shell
+docker compose up     
 ```
 
-### Compiles and minifies for production 🚀
+### Pocketbase 🗂
 
-```
-npm run build
-```
+1) Go to http://0.0.0.0:8090/_/ and create your account.
+
+2) Set your parameters in the env file.
+
+3) Import the collection in 'Settings
+   Import collections'. The setup file is in setup/pb_schema.json.
+
+For more info see [Pocketbase](https://pocketbase.io/).
 
 ### Run tests ✅
 
@@ -40,39 +43,35 @@ npm run build
 npm test
 ```
 
-### With Docker 🐳
+## Done 🥳
 
-Create image
+Just browse to [Home](http://localhost:8080/login)!
 
-```
+## Docker 🐳
+
+More detail on docker.
+
+Create app image.
+
+```shell
 docker build -t YOUR_DOCKER_ID/PROJECT_NAME . -f Run.Dockerfile   
 ```
 
-Run container
+Create Pocketbase image.
 
-```
-docker run -p 8080:80 YOUR_DOCKER_ID/PROJECT_NAME
-```
-
-## Pocketbase 🗂
-
-You need to install [Pocketbase](https://pocketbase.io/) and then eventually change the path in package.json.
-
-The template is in src/assets/.
-
-Don't forget to set the parameters in the env file.
-
-### With Docker 🐳
-
-Create image
-
-```
+```shell
 docker build -t YOUR_DOCKER_ID/PB_NAME . -f PB.Dockerfile   
 ```
 
-Run container
+Then modify the docker-compose.yml file with the name of the images that you just create.
 
+If you want to run containers separately.
+
+```shell
+docker run -p 8080:80 YOUR_DOCKER_ID/PROJECT_NAME
 ```
+
+```shell
 docker run -p 8090:8090 YOUR_DOCKER_ID/PB_NAME
 ```
 

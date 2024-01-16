@@ -1,10 +1,10 @@
 version: '3.4'
 services:
   app:
-    image: YOUR_DOCKER_ID/PROJECT_NAME
+    image: teschi0p0l/dockerize-vuejs-app
     ports:
       - "8080:80"
   db:
-    image: YOUR_DOCKER_ID/PB_NAME
+    image: teschi0p0l/pb-db
     ports:
       - "8090:8090"
