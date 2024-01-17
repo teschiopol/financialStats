@@ -12,7 +12,7 @@ A local web app to manage your personal finance based on relevance.
 
 ## Setup💾
 
-After clone the repo and install the dependencies, you need to configure Pocketbase.
+After clone the repo, install the dependencies.
 
 ```
 npm install
@@ -21,6 +21,8 @@ npm install
 ### Docker 🐳
 
 If you don't have, [install](https://docs.docker.com/guides/get-started/) it.
+
+Download docker images from [here](https://hub.docker.com/repository/docker/teschi0p0l/financial_stats/general).
 
 ```shell
 docker compose up     

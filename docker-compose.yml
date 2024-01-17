@@ -1,7 +1,7 @@
 version: '3.4'
 services:
   app:
-    image: teschi0p0l/dockerize-vuejs-app
+    image: teschi0p0l/vue-app
     ports:
       - "8080:80"
   db:
