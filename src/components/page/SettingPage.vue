@@ -26,6 +26,11 @@ export default {
   setup() {
     const lang_label = ref('Attuale: IT 🇮🇹');
 
+    let languageStorage = localStorage.getItem('user-lang');
+    if (languageStorage) {
+      lang_label.value = languageStorage;
+    }
+
     let user = localStorage.getItem('user-info');
     if (!user) {
       router.push({name: "Login"});
@@ -48,8 +53,9 @@ export default {
       if (lang_label.value.includes('IT')) {
         lang_label.value = 'Current: EN 🇬🇧';
       } else {
-        lang_label.value = 'Current: IT 🇮🇹';
+        lang_label.value = 'Attuale: IT 🇮🇹';
       }
+      localStorage.setItem('user-lang', lang_label.value);
     }
 
     return {changeLanguage, lang_label};
