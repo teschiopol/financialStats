@@ -1,6 +1,6 @@
 ## TODO ✅
 
-- [ ] src/components/page/SettingPage.vue:47: language change
+- [ ] src/components/page/SettingPage.vue:52: language change
 
 - [ ] src/components/page/HomePage.vue:87: fix this dynamic
 
