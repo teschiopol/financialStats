@@ -56,13 +56,13 @@ More detail on docker.
 Create app image.
 
 ```shell
-docker build -t YOUR_DOCKER_ID/PROJECT_NAME . -f Run.Dockerfile   
+docker build -t YOUR_DOCKER_ID/PROJECT_NAME . -f dockerfile/Run.Dockerfile   
 ```
 
 Create Pocketbase image.
 
 ```shell
-docker build -t YOUR_DOCKER_ID/PB_NAME . -f PB.Dockerfile   
+docker build -t YOUR_DOCKER_ID/PB_NAME . -f dockerfile/PB.Dockerfile   
 ```
 
 Then modify the docker-compose.yml file with the name of the images that you just create.
